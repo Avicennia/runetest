@@ -38,7 +38,7 @@ minetest.register_node("runetest:glyph_n", {
 		"glyph_n.png",
 		"glyph_n.png"
 	},
-	groups = {oddly_breakable_by_hand = 3},
+	groups = {oddly_breakable_by_hand = 3, falling_node = 3},
 	drawtype = "nodebox",
 	paramtype = "light",
 	node_box = {
@@ -49,13 +49,7 @@ minetest.register_node("runetest:glyph_n", {
     },
 	on_construct = function(pos)
 		local meta = minetest.get_meta(pos)
-		runetest.find_inscrip(pos)
-		--count = runetest.find_inscrip(pos)
-		--meta:set_int("num_of_neighbors",count)
-       -- if(meta:get_int("num_of_neighbors") == 4) then
-		--	minetest.add_node(pos,{name = "runetest:glyph_c"})
-		
-    end
+	end
 })
 minetest.register_node("runetest:glyph_c", {
 	tiles = {
@@ -108,6 +102,180 @@ minetest.register_node("runetest:glyph_d", {
 		type = "fixed",
 		fixed = {
 			{-0.5, -0.5, -0.5, 0.5, -0.4925, 0.5}, -- NodeBox7
+		}
+	}
+})
+--	--	--	--	--	Offering Sigils
+minetest.register_node("runetest:offering_sigil_corner", {
+	tiles = {
+		"offering_circle_corner.png",
+		"offering_circle_corner.png",
+		"offering_circle_corner.png",
+		"offering_circle_corner.png",
+		"offering_circle_corner.png",
+		"offering_circle_corner.png"
+	},
+	drawtype = "nodebox",
+	paramtype = "light",
+	node_box = {
+		type = "fixed",
+		fixed = {
+			{-0.5, -0.5, -0.5, 0.5, -0.4925, 0.5}, -- NodeBox7
+		}
+	}
+})
+								minetest.register_node("runetest:offering_sigil_corner_r90", {
+									tiles = {
+										"offering_circle_corner_r90.png",
+										"offering_circle_corner_r90.png",
+										"offering_circle_corner_r90.png",
+										"offering_circle_corner_r90.png",
+										"offering_circle_corner_r90.png",
+										"offering_circle_corner_r90.png"
+									},
+									drawtype = "nodebox",
+									paramtype = "light",
+									node_box = {
+										type = "fixed",
+										fixed = {
+											{-0.5, -0.5, -0.5, 0.5, -0.4925, 0.5}, -- NodeBox7
+										}
+									}
+								})
+								minetest.register_node("runetest:offering_sigil_corner_r180", {
+									tiles = {
+										"offering_circle_corner_r180.png",
+										"offering_circle_corner_r180.png",
+										"offering_circle_corner_r180.png",
+										"offering_circle_corner_r180.png",
+										"offering_circle_corner_r180.png",
+										"offering_circle_corner_r180.png"
+									},
+									drawtype = "nodebox",
+									paramtype = "light",
+									node_box = {
+										type = "fixed",
+										fixed = {
+											{-0.5, -0.5, -0.5, 0.5, -0.4925, 0.5}, -- NodeBox7
+										}
+									}
+								})
+								minetest.register_node("runetest:offering_sigil_corner_r360", {
+									tiles = {
+										"offering_circle_corner_r360.png",
+										"offering_circle_corner_r360.png",
+										"offering_circle_corner_r360.png",
+										"offering_circle_corner_r360.png",
+										"offering_circle_corner_r360.png",
+										"offering_circle_corner_r360.png"
+									},
+									drawtype = "nodebox",
+									paramtype = "light",
+									node_box = {
+										type = "fixed",
+										fixed = {
+											{-0.5, -0.5, -0.5, 0.5, -0.4925, 0.5}, -- NodeBox7
+										}
+									}
+								})
+minetest.register_node("runetest:offering_sigil_vertex", {
+	tiles = {
+		"offering_circle_vertice.png",
+		"offering_circle_vertice.png",
+		"offering_circle_vertice.png",
+		"offering_circle_vertice.png",
+		"offering_circle_vertice.png",
+		"offering_circle_vertice.png"
+	},
+	drawtype = "nodebox",
+	paramtype = "light",
+	node_box = {
+		type = "fixed",
+		fixed = {
+			{-0.5, -0.5, -0.5, 0.5, -0.4925, 0.5}, -- NodeBox7
+		}
+	}
+})
+								minetest.register_node("runetest:offering_sigil_vertex_r90", {
+									tiles = {
+										"offering_circle_vertice_r90.png",
+										"offering_circle_vertice_r90.png",
+										"offering_circle_vertice_r90.png",
+										"offering_circle_vertice_r90.png",
+										"offering_circle_vertice_r90.png",
+										"offering_circle_vertice_r90.png"
+									},
+									drawtype = "nodebox",
+									paramtype = "light",
+									node_box = {
+										type = "fixed",
+										fixed = {
+											{-0.5, -0.5, -0.5, 0.5, -0.4925, 0.5}, -- NodeBox7
+										}
+									}
+								})
+								minetest.register_node("runetest:offering_sigil_vertex_r180", {
+									tiles = {
+										"offering_circle_vertice_r180.png",
+										"offering_circle_vertice_r180.png",
+										"offering_circle_vertice_r180.png",
+										"offering_circle_vertice_r180.png",
+										"offering_circle_vertice_r180.png",
+										"offering_circle_vertice_r180.png"
+									},
+									drawtype = "nodebox",
+									paramtype = "light",
+									node_box = {
+										type = "fixed",
+										fixed = {
+											{-0.5, -0.5, -0.5, 0.5, -0.4925, 0.5}, -- NodeBox7
+										}
+									}
+								})
+								minetest.register_node("runetest:offering_sigil_vertex_r360", {
+									tiles = {
+										"offering_circle_vertice_r360.png",
+										"offering_circle_vertice_r360.png",
+										"offering_circle_vertice_r360.png",
+										"offering_circle_vertice_r360.png",
+										"offering_circle_vertice_r360.png",
+										"offering_circle_vertice_r360.png"
+									},
+									drawtype = "nodebox",
+									paramtype = "light",
+									node_box = {
+										type = "fixed",
+										fixed = {
+											{-0.5, -0.5, -0.5, 0.5, -0.4925, 0.5}, -- NodeBox7
+										}
+									}
+								})
+--	--	--	--	--	--	--	Reagents	--	--	--	--	--	--	--
+minetest.register_node("runetest:reagent_humblesalt", {
+	tiles = {
+		"tex_salt.png",
+		"tex_salt.png",
+		"tex_salt.png",
+		"tex_salt.png",
+		"tex_salt.png",
+		"tex_salt.png"
+	},
+	drawtype = "nodebox",
+	paramtype = "light",
+	node_box = {
+		type = "fixed",
+		fixed = {
+			{-0.1875, -0.5, 0.0625, -0.125, -0.375, 0.125}, -- NodeBox1
+			{-0.0625, -0.5, -0.0625, 0, -0.4375, 0}, -- NodeBox2
+			{0, -0.5, -0.0625, 0.0625, -0.4375, 0}, -- NodeBox3
+			{-0.125, -0.5, -0.125, -0.0625, -0.4375, -0.0625}, -- NodeBox4
+			{0, -0.5, -0.125, 0.0625, -0.375, -0.0625}, -- NodeBox5
+			{0, -0.5, 0, 0.0625, -0.4375, 0.0625}, -- NodeBox6
+			{0.125, -0.5, 0.0625, 0.1875, -0.375, 0.125}, -- NodeBox7
+			{0.125, -0.5, 0, 0.1875, -0.4375, 0.0625}, -- NodeBox8
+			{0.125, -0.5, -0.1875, 0.1875, -0.4375, -0.125}, -- NodeBox9
+			{-0.25, -0.5, -0.1875, -0.1875, -0.4375, -0.125}, -- NodeBox10
+			{-0.0625, -0.5, 0.0625, 0, -0.4375, 0.125}, -- NodeBox11
 		}
 	}
 })

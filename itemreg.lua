@@ -27,10 +27,17 @@ minetest.register_tool("runetest:pen_1",{
         },
     
         on_use = function(itemstack, user, pointed_thing)
+            local pos = pointed_thing.above
         local detect = minetest.find_node_near(pointed_thing.above,1,{name = "runetest:glyph_n"},true)
-        --minetest.chat_send_all(minetest.serialize(detect))
         itemstack:add_wear(100)
-        minetest.place_node(pointed_thing.above,{name = "runetest:glyph_n"})
+        minetest.place_node(pointed_thing.above,{name = "runetest:glyph_d"})
+        runetest.find_neighborhood(pointed_thing.above,"hor_x")
+        local a,b,c,d = runetest.find_neighborhood(pointed_thing.above,"hor_x")
+        minetest.chat_send_all(minetest.serialize(a).."---------------------")
+        minetest.chat_send_all(minetest.serialize(b).."---------------------")
+        minetest.chat_send_all(minetest.serialize(c).."---------------------")
+        minetest.chat_send_all(minetest.serialize(d).."---------------------")
+        runetest.sleuth(pos,a,b,c,d)
         return itemstack
         end
     
