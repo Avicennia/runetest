@@ -25,16 +25,4 @@ minetest.register_tool("runetest:pen_1",{
             breaks = "default_tool_break", -- tools only
             place = "default_tool_break",
         },
-    
-        on_use = function(itemstack, user, pointed_thing)
-            local pos = pointed_thing.above
-        local detect = minetest.find_node_near(pointed_thing.above,1,{name = "runetest:glyph_n"},true)
-        itemstack:add_wear(100)
-        minetest.place_node(pointed_thing.above,{name = "runetest:glyph_d"})
-        runetest.find_neighborhood(pointed_thing.above,"line")
-        local a,b,c,d = runetest.find_neighborhood(pointed_thing.above,"hor_x")
-        runetest.sleuth(pos,a,b,c,d)
-        return itemstack
-        end
-    
-})
+    })
