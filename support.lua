@@ -1,11 +1,26 @@
 --
---
---
 
---  --  --  --  --  --  --  PARTICLE EFFECTS -- --  --  --  --  --  --  
+--  --  --  --  --  --  -- Template Glyphs and Runes --  --  --  --  --  --  --  
 
---  --  --  --  --  --  --  --  --  --  --  --  --  --  
 
---  --  --  --  --  --  -- RUNE-AREA DESIGNATION AND RECOGNITION --  --  --  --  --  --  --  
+
+
+runetest.templates = {
+    
+    glyphs = {
+        {data = {name = "test", diam = 2, nodes = {names = {"runetest:glyph_n"},quants = {4}} },
+         template ={99,99,99,99}},
+        {},
+        {},
+    },
+
+    
+    runes = {
+
+    }
+
+
+}
+
 
 --  --  --  --  --  --  --  --  --  --  --  --  --  --  

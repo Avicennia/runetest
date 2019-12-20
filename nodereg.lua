@@ -122,45 +122,7 @@ minetest.register_node("runetest:offering_sigil_corner", {
 		}
 	}
 })
-minetest.register_node("runetest:offering_sigil_corner_r90", {
-	tiles = {
-		"offering_circle_corner_r90.png",
-	},
-	drawtype = "nodebox",
-	paramtype = "light",
-	node_box = {
-		type = "fixed",
-		fixed = {
-			{-0.5, -0.5, -0.5, 0.5, -0.4925, 0.5}, -- NodeBox7
-		}
-	}
-})
-minetest.register_node("runetest:offering_sigil_corner_r180", {
-	tiles = {
-		"offering_circle_corner_r180.png",
-	},
-	drawtype = "nodebox",
-	paramtype = "light",
-	node_box = {
-		type = "fixed",
-		fixed = {
-			{-0.5, -0.5, -0.5, 0.5, -0.4925, 0.5}, -- NodeBox7
-		}
-	}
-})
-minetest.register_node("runetest:offering_sigil_corner_r360", {
-	tiles = {
-		"offering_circle_corner_r360.png",
-	},
-	drawtype = "nodebox",
-	paramtype = "light",
-	node_box = {
-		type = "fixed",
-		fixed = {
-			{-0.5, -0.5, -0.5, 0.5, -0.4925, 0.5}, -- NodeBox7
-		}
-	}
-})
+
 minetest.register_node("runetest:offering_sigil_vertex", {
 	tiles = {
 		"offering_circle_vertice.png",
@@ -174,45 +136,7 @@ minetest.register_node("runetest:offering_sigil_vertex", {
 		}
 	}
 })
-minetest.register_node("runetest:offering_sigil_vertex_r90", {
-	tiles = {
-		"offering_circle_vertice_r90.png",
-	},
-	drawtype = "nodebox",
-	paramtype = "light",
-	node_box = {
-		type = "fixed",
-		fixed = {
-			{-0.5, -0.5, -0.5, 0.5, -0.4925, 0.5}, -- NodeBox7
-		}
-	}
-})
-minetest.register_node("runetest:offering_sigil_vertex_r180", {
-	tiles = {
-		"offering_circle_vertice_r180.png",
-	},
-	drawtype = "nodebox",
-	paramtype = "light",
-	node_box = {
-		type = "fixed",
-		fixed = {
-			{-0.5, -0.5, -0.5, 0.5, -0.4925, 0.5}, -- NodeBox7
-		}
-	}
-})
-minetest.register_node("runetest:offering_sigil_vertex_r360", {
-	tiles = {
-		"offering_circle_vertice_r360.png"
-	},
-	drawtype = "nodebox",
-	paramtype = "light",
-	node_box = {
-		type = "fixed",
-		fixed = {
-			{-0.5, -0.5, -0.5, 0.5, -0.4925, 0.5}, -- NodeBox7
-		}
-	}
-})
+
 --	--	--	--	--	--	--	Reagents	--	--	--	--	--	--	--
 minetest.register_node("runetest:reagent_humblesalt", {
 	tiles = {
@@ -237,8 +161,6 @@ minetest.register_node("runetest:reagent_humblesalt", {
 		}
 	},
 	on_rightclick = function(pos)
-		local find = runetest.find_neighborhood(pos,"hor_x")
-		runecheck.ringcheck(pos,3,"square","runetest:glyph_n")
 	end
 })
 --	--	--	--	--	--	--	ALTARS
@@ -260,7 +182,7 @@ minetest.register_node("runetest:dev", {
 		}
 	},
 	on_punch = function(pos)
-		minetest.chat_send_all(minetest.serialize(runetest.frame.anal(runetest.frame.snap(pos,10))))
+		minetest.chat_send_all(minetest.serialize(runetest.frame.anal(runetest.frame.snap(pos,2),1)))
 	end,
 })
 minetest.register_node("runetest:ash", {
@@ -268,33 +190,9 @@ minetest.register_node("runetest:ash", {
 	tiles = {"ash.png"},
 	groups = {crumbly = 2, oddly_breakable_by_hand = 1}
 })
---	--	--	--	--	--	--	Combat
-minetest.register_node("runetest:bomb_companion", {
-	tiles = {
-		"dev.png"
-	},
-	drawtype = "nodebox",
-	paramtype = "light",
-	node_box = {
-		type = "fixed",
-		fixed = {
-			{-0.5, 0.3125, -0.5, -0.3125, 0.5, -0.3125}, -- NodeBox3
-			{-0.5, -0.5, -0.5, -0.3125, -0.3125, -0.3125}, -- NodeBox4
-			{0.3125, -0.5, -0.5, 0.5, -0.3125, -0.3125}, -- NodeBox5
-			{0.3125, 0.3125, -0.5, 0.5, 0.5, -0.3125}, -- NodeBox6
-			{0.3125, 0.3125, 0.3125, 0.5, 0.5, 0.5}, -- NodeBox7
-			{0.3125, -0.5, 0.3125, 0.5, -0.3125, 0.5}, -- NodeBox8
-			{-0.5, -0.5, 0.3125, -0.3125, -0.3125, 0.5}, -- NodeBox9
-			{-0.5, 0.3125, 0.3125, -0.3125, 0.5, 0.5}, -- NodeBox10
-			{-0.3125, -0.3125, -0.3125, 0.3125, 0.3125, 0.3125}, -- NodeBox11
-			{0.3125, -0.125, -0.125, 0.375, 0.125, 0.125}, -- NodeBox12
-			{-0.375, -0.125, -0.125, -0.3125, 0.125, 0.125}, -- NodeBox13
-			{-0.125, -0.125, -0.375, 0.125, 0.125, -0.3125}, -- NodeBox15
-			{-0.125, -0.125, 0.3125, 0.125, 0.125, 0.375}, -- NodeBox16
-		}
-	},
-	groups = {falling_node = 6, oddly_breakable_by_hand = 2}
-})
+
+--	--	--	MISC
+
 minetest.register_node("runetest:meshy", {
     drawtype = "mesh",
 
@@ -305,4 +203,29 @@ minetest.register_node("runetest:meshy", {
 
     -- Path to the mesh
     mesh = "lectern.b3d",
+})
+
+minetest.register_node("runetest:rest", {
+    drawtype = "mesh",
+
+    -- Holds the texture for each "material"
+    tiles = {
+        "canvas2.png"
+    },
+
+    -- Path to the mesh
+	mesh = "stylusrest.b3d",
+	groups = {crumbly = 1,oddly_breakable_by_hand = 1}
+})
+minetest.register_node("runetest:rest_occupied", {
+    drawtype = "mesh",
+
+    -- Holds the texture for each "material"
+    tiles = {
+        "canvas2.png"
+    },
+
+    -- Path to the mesh
+	mesh = "stylusrestocc.b3d",
+	groups = {crumbly = 1,oddly_breakable_by_hand = 1}
 })
