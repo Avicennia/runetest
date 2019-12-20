@@ -19,50 +19,82 @@ end
     return db
 end
 
+runetest.frame.indexer = function(tab) --Converts table strings into numerical values
+    result = {}
+    for k,v in ipairs(tab)do
+        table.insert(result,tonumber(string.sub(v,string.find(v,"_")+1)))
+    end
+    return result
+end
+
+runetest.frame.chylomicron = function(t1,t2)
+    local result = 0
+    for n = 1, #t1, 1 do
+        if(t1[n] == t2[n])then
+            result = result + 1;
+        else end
+    end
+    if(result == #t1)then
+        result = true
+    else end
+    return result
+end
 
 
-runetest.frame.anal = function(tab,ind) --Disassemble, compare, determine, line-by-line from given table.
-    local chy = {};
-    local dedu = {count = 0, names = {}, propns = {}};
-    local db = "";
-    local idb = {};
-for pn = 1, #tab, 1 do  --Disassemble tab into an ordered set of names and store it in chy.
+runetest.frame.anal = function(tab,index) --Disassemble, compare, determine, line-by-line from given table.
+local data = {
+    incoming = {name = "unknown",
+                pattern = tab,
+                size = {#tab, #tab[1]}
+    },
+    temp = {name = runetest.templates.glyphs_names[index],
+            pattern = runetest.templates.glyphs[index],
+            size = {#runetest.templates.glyphs[index],#runetest.templates.glyphs[index][1]}
+    },
+    outgoing = {name = false, pattern = {}}
+}
+
+local assumptions = {eq = false, norm = false, id = false}
+
+--COUNT TEST
+if(data.incoming.size[1] == data.temp.size[1])then
+    assumptions.eq = true;
+else return end
+
+if(assumptions.eq == true and data.incoming.size[2] == data.temp.size[2])then
+    assumptions.norm = true;
+else return end
+
+if(assumptions.eq == true and assumptions.norm == true)then
     for n = 1, #tab, 1 do
-        table.insert(chy,tab[pn][n])
+    table.insert(data.outgoing.pattern,runetest.frame.indexer(tab[n]))
+end
+
+if(assumptions.norm == true)then -- COnvoluted set of functions to test equality of variables in tables.
+    local result = {}
+    local chk = 0
+    for x = 1, data.incoming.size[1] do -- for each table in each, check if numbers are same
+    result[x] = runetest.frame.chylomicron(data.outgoing.pattern[x],data.temp.pattern[x]) 
     end
-end
-
-if(#chy == runetest.templates.glyphs[ind].data.diam*runetest.templates.glyphs[ind].data.diam)then --COUNT test
-    dedu.count = true;
-    db = db .. " | Count Test: PASS"
-    table.insert(idb,true);
-else dedu.count = false;
-    db = db .. " | Count Test: FAIL"
-    table.insert(idb,false);
-end
-
-if(dedu.count == true)then --NAME test
-    local yea = 0
-    local nay = 0
-    for _,v in pairs(runetest.templates.glyphs[ind].data.nodes.names) do
-        for n = 1, #chy, 1 do
-            if(v == chy[n])then
-                yea = yea + 1;
-            else nay = nay + 1;
-            end
-        end
+    for n = 1, #result, 1 do -- If they are both equal, then all tables within tables will have true
+        if(result[n] == true)then
+            chk = chk + 1
+        else end
     end
-   if(yea == #chy)then
-    db = db .. " | Name Test: PASS"
-    table.insert(idb,true);
-   else db = db .. " | Name Test: FAIL"
-    table.insert(idb,false);
-   end
+    if(chk == #data.temp.pattern)then
+        assumptions.id = true
+    else end
+
+else end
+    
+end
+return assumptions.id
 end
 
 
---            \/    NEEDS INDIVIDUAL TEMPLATE DETERMINATION
-if(idb[1] and idb[2] == true)then -- CREATE table using nodename-number index
+
+--[[            \/    NEEDS INDIVIDUAL TEMPLATE DETERMINATION
+if(idb[1] == true)then -- CREATE table using nodename-number index
     local numchy = {};
     for _,v in ipairs(chy) do
         string.len(v)
@@ -71,6 +103,5 @@ if(idb[1] and idb[2] == true)then -- CREATE table using nodename-number index
 else
 end
 
-return idb
+return idb]]
 
-end

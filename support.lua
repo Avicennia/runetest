@@ -6,12 +6,12 @@
 
 
 runetest.templates = {
-    
+    glyphs_names = {
+        "basic_square"
+    },
     glyphs = {
-        {data = {name = "test", diam = 2, nodes = {names = {"runetest:glyph_n"},quants = {4}} },
-         template ={99,99,99,99}},
-        {},
-        {},
+    {{1,1},
+     {1,1}}
     },
 
     
