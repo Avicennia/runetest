@@ -21,13 +21,19 @@ end
 
 runetest.frame.indexer = function(tab) --Converts table strings into numerical values
     result = {}
+    if(tab)then
     for k,v in ipairs(tab)do
+        if(string.find(v,"_") and string.sub(v,string.find(v,"_")+1))then
         table.insert(result,tonumber(string.sub(v,string.find(v,"_")+1)))
+        else table.insert(result,false)
+        end
     end
     return result
+else 
+    return end
 end
 
-runetest.frame.chylomicron = function(t1,t2)
+runetest.frame.chylomicron = function(t1,t2) -- compares values within tables, and if equal, assigns true
     local result = 0
     for n = 1, #t1, 1 do
         if(t1[n] == t2[n])then
@@ -37,6 +43,7 @@ runetest.frame.chylomicron = function(t1,t2)
     if(result == #t1)then
         result = true
     else end
+    minetest.chat_send_all("CHYLO SAYS "..minetest.serialize(result))
     return result
 end
 
@@ -59,22 +66,25 @@ local assumptions = {eq = false, norm = false, id = false}
 --COUNT TEST
 if(data.incoming.size[1] == data.temp.size[1])then
     assumptions.eq = true;
-else return end
+else 
+    minetest.chat_send_all(data.incoming.size[1])
+    return end
 
 if(assumptions.eq == true and data.incoming.size[2] == data.temp.size[2])then
     assumptions.norm = true;
-else return end
+else minetest.chat_send_all("SIZE ISSUE")return end
 
-if(assumptions.eq == true and assumptions.norm == true)then
+if(assumptions.eq == true and assumptions.norm == true)then --DIgitize table
     for n = 1, #tab, 1 do
-    table.insert(data.outgoing.pattern,runetest.frame.indexer(tab[n]))
+    table.insert(data.outgoing.pattern,runetest.frame.indexer(data.incoming.pattern[n]))
+    minetest.chat_send_all("WHAT?")
 end
-
+else minetest.chat_send_all("COMPARATOR ISSUE")end
 if(assumptions.norm == true)then -- COnvoluted set of functions to test equality of variables in tables.
     local result = {}
     local chk = 0
     for x = 1, data.incoming.size[1] do -- for each table in each, check if numbers are same
-    result[x] = runetest.frame.chylomicron(data.outgoing.pattern[x],data.temp.pattern[x]) 
+    result[x] = runetest.frame.chylomicron(data.temp.pattern[x],runetest.frame.indexer(data.incoming.pattern[x])) 
     end
     for n = 1, #result, 1 do -- If they are both equal, then all tables within tables will have true
         if(result[n] == true)then
@@ -86,8 +96,9 @@ if(assumptions.norm == true)then -- COnvoluted set of functions to test equality
     else end
 
 else end
-    
-end
+   
+
+minetest.chat_send_all(minetest.serialize(data.incoming.pattern).." | "..minetest.serialize(data.temp.pattern).." | "..minetest.serialize(data.outgoing.pattern))
 return assumptions.id
 end
 

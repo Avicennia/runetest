@@ -182,7 +182,7 @@ minetest.register_node("runetest:dev", {
 		}
 	},
 	on_punch = function(pos)
-		minetest.chat_send_all(minetest.serialize(runetest.frame.anal({{"runetest:glyph_1","runetest:glyph_1"},{"runetest:glyph_1","runetest:glyph_1"}},1)))
+		minetest.chat_send_all(minetest.serialize(runetest.frame.anal(runetest.frame.snap(pos,2),1)))
 	end,
 })
 minetest.register_node("runetest:ash", {
