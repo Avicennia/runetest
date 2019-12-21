@@ -36,19 +36,12 @@ minetest.register_node("runetest:rune_detector_idle", {
 ---                     GLYPHS                      ---
 ---                                                 ---
 ---                                                 ---
-minetest.register_node("runetest:glyph_n", {
-	tiles = {
-		"glyphtex.png",
-		"glyphtex.png",
-		"glyphtex.png",
-		"glyphtex.png",
-		"glyphtex.png",
-		"glyphtex.png"
-	},
+minetest.register_node("runetest:glyph_28", {
+	tiles = {"glyphtex.png",},
 	groups = {oddly_breakable_by_hand = 3, falling_node = 3,rt_chalk = 1},
 	drawtype = "nodebox",
 	paramtype = "light",
-	connects_to = {"runetest:glyph_n"},
+	connects_to = {"group:rt_chalk"},
 	connect_sides = { "top", "bottom", "front", "left", "back", "right" },
 	node_box = {
 		type = "connected",
@@ -67,7 +60,7 @@ end
 
 
 --	--	--	Various Glyphs	--	--	--
-for n = 1, #runetest.glyphs, 1 do
+for n = 1, #runetest.glyphs-1, 1 do
 minetest.register_node("runetest:glyph_"..n.."active", {
 	tiles = {
 		"glyph_" .. n .. ".png".."^[mask:palette_stone_obsidian.png",
@@ -189,8 +182,8 @@ minetest.register_node("runetest:dev", {
 		}
 	},
 	on_punch = function(pos)
-		minetest.chat_send_all(minetest.serialize(runetest.frame.anal(runetest.frame.snap(pos,3),3)))
-		if(runetest.frame.anal(runetest.frame.snap(pos,3),3) == true)then
+		minetest.chat_send_all(minetest.serialize(runetest.frame.anal(runetest.frame.snap(pos,3),4)))
+		if(runetest.frame.anal(runetest.frame.snap(pos,3),4) == true)then
 			runetest.frame.poof(pos,4)
 		else end
 	end,

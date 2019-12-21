@@ -27,6 +27,7 @@ runetest.frame.indexer = function(tab) --Converts table strings into numerical v
         table.insert(result,tonumber(string.sub(v,string.find(v,"_")+1)))
         elseif(v == "air")then
             table.insert(result,0)
+        else 
         end
     end
     return result
@@ -114,8 +115,9 @@ runetest.frame.poof = function(pos,diam)
     local poofarea = minetest.find_nodes_in_area(pos,{x=pos.x+pdiam,y=pos.y,z=pos.z+pdiam},{"group:rt_chalk"})
     for n = 1, #poofarea, 1 do
         runetest.glyph_activate1(poofarea[n])
-        local name = minetest.get_node(poofarea[n]).name
-        minetest.set_node(poofarea[n],{name = "runetest:glyph_"..string.sub(name,string.find(name,"_")+1).."active"})
+        minetest.remove_node(poofarea[n])
+        --local name = minetest.get_node(poofarea[n]).name
+        --minetest.set_node(poofarea[n],{name = "runetest:glyph_"..string.sub(name,string.find(name,"_")+1).."active"})
     end
 end
 
