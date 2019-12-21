@@ -45,7 +45,7 @@ minetest.register_node("runetest:glyph_n", {
 		"glyphtex.png",
 		"glyphtex.png"
 	},
-	groups = {oddly_breakable_by_hand = 3, falling_node = 3},
+	groups = {oddly_breakable_by_hand = 3, falling_node = 3,rt_chalk = 1},
 	drawtype = "nodebox",
 	paramtype = "light",
 	connects_to = {"runetest:glyph_n"},
@@ -107,15 +107,6 @@ minetest.register_node("runetest:glyph_"..n, {
 		}
 	},
 	groups = {oddly_breakable_by_hand = 3, falling_node = 3, rt_chalk = 1},
-	on_construct = function(pos)
-		local timer = minetest.get_node_timer(pos)
-		timer:start(2)
-	end,
-	on_timer = function(pos)
-		runetest.glyph_active(pos)
-		local timer = minetest.get_node_timer(pos)
-		timer:start(2)
-	end,
 	on_punch = function(pos)
 		minetest.remove_node(pos)
 	end
@@ -199,6 +190,9 @@ minetest.register_node("runetest:dev", {
 	},
 	on_punch = function(pos)
 		minetest.chat_send_all(minetest.serialize(runetest.frame.anal(runetest.frame.snap(pos,3),3)))
+		if(runetest.frame.anal(runetest.frame.snap(pos,3),3) == true)then
+			runetest.frame.poof(pos,4)
+		else end
 	end,
 })
 minetest.register_node("runetest:ash", {

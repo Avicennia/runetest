@@ -95,10 +95,27 @@ if(assumptions.norm == true)then -- COnvoluted set of functions to test equality
 else end
    
 
-minetest.chat_send_all(minetest.serialize(data.incoming.pattern).." | "..minetest.serialize(data.temp.pattern).." | "..minetest.serialize(data.outgoing.pattern))
+--minetest.chat_send_all(minetest.serialize(data.incoming.pattern).." | "..minetest.serialize(data.temp.pattern).." | "..minetest.serialize(data.outgoing.pattern))
 
 return assumptions.id
 
+end
+
+
+-------!!!!!!!!!
+runetest.frame.cast = function()
+end
+-------!!!!!!!!!
+
+
+runetest.frame.poof = function(pos,diam)
+    pdiam = diam-1;
+    local poofarea = minetest.find_nodes_in_area(pos,{x=pos.x+pdiam,y=pos.y,z=pos.z+pdiam},{"group:rt_chalk"})
+    for n = 1, #poofarea, 1 do
+        runetest.glyph_activate1(poofarea[n])
+        local name = minetest.get_node(poofarea[n]).name
+        minetest.set_node(poofarea[n],{name = "runetest:glyph_"..string.sub(name,string.find(name,"_")+1).."active"})
+    end
 end
 
 

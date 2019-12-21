@@ -63,25 +63,96 @@ runetest.sigil_offering_active = function(pos)
 
 runetest.glyph_active = function(pos)
     minetest.add_particlespawner({
-        amount = 4,
+        amount = 8,
         time = 2,
 
         minpos = {x=pos.x-0.3, y=pos.y-0.3, z=pos.z-0.3},
         maxpos = {x=pos.x+0.3, y=pos.y-0.3, z=pos.z+0.3},
-        minvel = {x=0.1, y=0.4, z=0.1},
-        maxvel = {x=0.2, y=0.4, z=0.2},
+        minvel = {x=0.1, y=0.2, z=0.1},
+        maxvel = {x=0.2, y=0.23, z=0.2},
         minacc = {x=0, y=0, z=0},
         maxacc = {x=0, y=0, z=0},
         minexptime = 1,
         maxexptime = 1,
-        minsize = 0.5,
-        maxsize = 0.2,
+        minsize = 0.3,
+        maxsize = 0.7,
 
         collisiondetection = false,
         collision_removal = false,
         attached = ObjectRef,
         vertical = true,
-        texture = "twinkle.png",
+        texture = "twinkleflame.png",
         glow = 2
     })
     end
+
+-- Activate
+runetest.glyph_activate1 = function(pos)
+    minetest.add_particlespawner({
+        amount = 12,
+        time = 1,
+
+        minpos = {x=pos.x-0.3, y=pos.y-0.3, z=pos.z-0.3},
+        maxpos = {x=pos.x+0.3, y=pos.y-0.3, z=pos.z+0.3},
+        minvel = {x=0.9, y=3.9, z=0.9},
+        maxvel = {x=1.2, y=5.83, z=1.2},
+        minacc = {x=0, y=0, z=0},
+        maxacc = {x=0.5, y=0.5, z=0.5},
+        minexptime = 0.1,
+        maxexptime = 0.2,
+        minsize = 0.3,
+        maxsize = 0.7,
+
+        collisiondetection = false,
+        collision_removal = false,
+        attached = ObjectRef,
+        vertical = true,
+        texture = "twinkleflame.png",
+        glow = 2
+    })
+
+    minetest.add_particlespawner({
+        amount = 12,
+        time = 1,
+
+        minpos = {x=pos.x-0.3, y=pos.y-0.3, z=pos.z-0.3},
+        maxpos = {x=pos.x+0.3, y=pos.y-0.3, z=pos.z+0.3},
+        minvel = {x=0.9, y=3.9, z=0.9},
+        maxvel = {x=-1.6, y=5.83, z=-1.6},
+        minacc = {x=0, y=0, z=0},
+        maxacc = {x=0.5, y=0.5, z=0.5},
+        minexptime = 0.1,
+        maxexptime = 0.2,
+        minsize = 0.3,
+        maxsize = 0.7,
+
+        collisiondetection = false,
+        collision_removal = false,
+        attached = ObjectRef,
+        vertical = true,
+        texture = "twinkleflame.png",
+        glow = 2
+    })
+    minetest.add_particlespawner({
+        amount = 12,
+        time = 1,
+
+        minpos = {x=pos.x-0.3, y=pos.y-0.3, z=pos.z-0.3},
+        maxpos = {x=pos.x+0.3, y=pos.y-0.3, z=pos.z+0.3},
+        minvel = {x=0.9, y=3.9, z=0.9},
+        maxvel = {x=1.6, y=5.83, z=1.6},
+        minacc = {x=0, y=0, z=0},
+        maxacc = {x=0.5, y=0.5, z=0.5},
+        minexptime = 0.1,
+        maxexptime = 0.2,
+        minsize = 0.3,
+        maxsize = 0.7,
+
+        collisiondetection = false,
+        collision_removal = false,
+        attached = ObjectRef,
+        vertical = true,
+        texture = "twinkleflame.png",
+        glow = 2
+    })
+end
