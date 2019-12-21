@@ -1,3 +1,9 @@
+
+--								--
+--			ACTIVEITEMS			--
+--								--
+
+
 minetest.register_node("runetest:rune_detector_idle", {
 	tiles = {
 		"palette_stone_obsidian.png",
@@ -12,18 +18,19 @@ minetest.register_node("runetest:rune_detector_idle", {
 	node_box = {
 		type = "fixed",
 		fixed = {
-			{0, -0.4375, 0, 0.0625, -0.25, 0.0625}, -- NodeBox1
-			{0, -0.4375, -0.125, 0.0625, -0.25, -0.0625}, -- NodeBox2
-			{-0.125, -0.4375, -0.125, -0.0625, -0.25, -0.0625}, -- NodeBox3
-			{-0.125, -0.4375, 0, -0.0625, -0.25, 0.0625}, -- NodeBox4
-			{-0.125, -0.5, -0.125, 0.0625, -0.4375, 0.0625}, -- NodeBox5
+			{0, -0.4375, 0, 0.0625, -0.25, 0.0625},
+			{0, -0.4375, -0.125, 0.0625, -0.25, -0.0625},
+			{-0.125, -0.4375, -0.125, -0.0625, -0.25, -0.0625},
+			{-0.125, -0.4375, 0, -0.0625, -0.25, 0.0625},
+			{-0.125, -0.5, -0.125, 0.0625, -0.4375, 0.0625},
 		}
     },
     on_construct = function(pos)
         runetest.rune_passive_beam(pos)
-    end
+	end,
+	groups = {oddly_breakable_by_hand = 2}
 })
-
+-------------------------------------------------------------------
 
 
 ---                     GLYPHS                      ---
@@ -46,7 +53,7 @@ minetest.register_node("runetest:glyph_n", {
 	node_box = {
 		type = "connected",
 		fixed = {
-			{-0.0625, -0.5, -0.0625, 0.0625, -0.48875, 0.0625}, -- NodeBox7
+			{-0.0625, -0.5, -0.0625, 0.0625, -0.48875, 0.0625},
 		},
 		connect_back = {-0.0625, -0.5, 0.0625, 0.0625, -0.48875, 0.5},
 		connect_right = {0.0625, -0.5, -0.0625, 0.5, -0.48875, 0.0625},
@@ -82,6 +89,9 @@ minetest.register_node("runetest:glyph_"..n.."active", {
 		runetest.glyph_active(pos)
 		local timer = minetest.get_node_timer(pos)
 		timer:start(2)
+	end,
+	on_punch = function(pos)
+		minetest.remove_node(pos)
 	end
 })
 minetest.register_node("runetest:glyph_"..n, {
@@ -96,7 +106,7 @@ minetest.register_node("runetest:glyph_"..n, {
 			{-0.5, -0.5, -0.5, 0.5, -0.4925, 0.5},
 		}
 	},
-	groups = {oddly_breakable_by_hand = 3, falling_node = 3},
+	groups = {oddly_breakable_by_hand = 3, falling_node = 3, rt_chalk = 1},
 	on_construct = function(pos)
 		local timer = minetest.get_node_timer(pos)
 		timer:start(2)
@@ -105,6 +115,9 @@ minetest.register_node("runetest:glyph_"..n, {
 		runetest.glyph_active(pos)
 		local timer = minetest.get_node_timer(pos)
 		timer:start(2)
+	end,
+	on_punch = function(pos)
+		minetest.remove_node(pos)
 	end
 })
 end
@@ -118,9 +131,10 @@ minetest.register_node("runetest:offering_sigil_corner", {
 	node_box = {
 		type = "fixed",
 		fixed = {
-			{-0.5, -0.5, -0.5, 0.5, -0.4925, 0.5}, -- NodeBox7
+			{-0.5, -0.5, -0.5, 0.5, -0.4925, 0.5},
 		}
-	}
+	},
+	groups = {oddly_breakable_by_hand = 2}
 })
 
 minetest.register_node("runetest:offering_sigil_vertex", {
@@ -132,9 +146,10 @@ minetest.register_node("runetest:offering_sigil_vertex", {
 	node_box = {
 		type = "fixed",
 		fixed = {
-			{-0.5, -0.5, -0.5, 0.5, -0.4925, 0.5}, -- NodeBox7
+			{-0.5, -0.5, -0.5, 0.5, -0.4925, 0.5},
 		}
-	}
+	},
+	groups = {oddly_breakable_by_hand = 2}
 })
 
 --	--	--	--	--	--	--	Reagents	--	--	--	--	--	--	--
@@ -147,21 +162,22 @@ minetest.register_node("runetest:reagent_humblesalt", {
 	node_box = {
 		type = "fixed",
 		fixed = {
-			{-0.1875, -0.5, 0.0625, -0.125, -0.375, 0.125}, -- NodeBox1
-			{-0.0625, -0.5, -0.0625, 0, -0.4375, 0}, -- NodeBox2
-			{0, -0.5, -0.0625, 0.0625, -0.4375, 0}, -- NodeBox3
-			{-0.125, -0.5, -0.125, -0.0625, -0.4375, -0.0625}, -- NodeBox4
-			{0, -0.5, -0.125, 0.0625, -0.375, -0.0625}, -- NodeBox5
-			{0, -0.5, 0, 0.0625, -0.4375, 0.0625}, -- NodeBox6
-			{0.125, -0.5, 0.0625, 0.1875, -0.375, 0.125}, -- NodeBox7
-			{0.125, -0.5, 0, 0.1875, -0.4375, 0.0625}, -- NodeBox8
-			{0.125, -0.5, -0.1875, 0.1875, -0.4375, -0.125}, -- NodeBox9
-			{-0.25, -0.5, -0.1875, -0.1875, -0.4375, -0.125}, -- NodeBox10
-			{-0.0625, -0.5, 0.0625, 0, -0.4375, 0.125}, -- NodeBox11
+			{-0.1875, -0.5, 0.0625, -0.125, -0.375, 0.125},
+			{-0.0625, -0.5, -0.0625, 0, -0.4375, 0},
+			{0, -0.5, -0.0625, 0.0625, -0.4375, 0},
+			{-0.125, -0.5, -0.125, -0.0625, -0.4375, -0.0625},
+			{0, -0.5, -0.125, 0.0625, -0.375, -0.0625},
+			{0, -0.5, 0, 0.0625, -0.4375, 0.0625},
+			{0.125, -0.5, 0.0625, 0.1875, -0.375, 0.125},
+			{0.125, -0.5, 0, 0.1875, -0.4375, 0.0625},
+			{0.125, -0.5, -0.1875, 0.1875, -0.4375, -0.125},
+			{-0.25, -0.5, -0.1875, -0.1875, -0.4375, -0.125},
+			{-0.0625, -0.5, 0.0625, 0, -0.4375, 0.125},
 		}
 	},
 	on_rightclick = function(pos)
-	end
+	end,
+	groups = {oddly_breakable_by_hand = 2}
 })
 --	--	--	--	--	--	--	ALTARS
 minetest.register_node("runetest:dev", {
@@ -173,16 +189,16 @@ minetest.register_node("runetest:dev", {
 	node_box = {
 		type = "fixed",
 		fixed = {
-			{-0.5, 0.4375, -0.5, 0.5, 0.5, 0.5}, -- NodeBox1
-			{-0.4375, 0.375, -0.4375, 0.4375, 0.4375, 0.4375}, -- NodeBox2
-			{-0.375, 0.3125, -0.375, 0.375, 0.4375, 0.375}, -- NodeBox3
-			{-0.3125, 0.25, -0.3125, 0.3125, 0.4375, 0.3125}, -- NodeBox4
-			{-0.3125, -0.375, -0.3125, 0.3125, 0.4375, 0.3125}, -- NodeBox5
-			{-0.375, -0.5, -0.375, 0.375, -0.375, 0.375}, -- NodeBox6
+			{-0.5, 0.4375, -0.5, 0.5, 0.5, 0.5},
+			{-0.4375, 0.375, -0.4375, 0.4375, 0.4375, 0.4375},
+			{-0.375, 0.3125, -0.375, 0.375, 0.4375, 0.375},
+			{-0.3125, 0.25, -0.3125, 0.3125, 0.4375, 0.3125},
+			{-0.3125, -0.375, -0.3125, 0.3125, 0.4375, 0.3125},
+			{-0.375, -0.5, -0.375, 0.375, -0.375, 0.375},
 		}
 	},
 	on_punch = function(pos)
-		minetest.chat_send_all(minetest.serialize(runetest.frame.anal(runetest.frame.snap(pos,2),1)))
+		minetest.chat_send_all(minetest.serialize(runetest.frame.anal(runetest.frame.snap(pos,3),3)))
 	end,
 })
 minetest.register_node("runetest:ash", {
@@ -195,37 +211,25 @@ minetest.register_node("runetest:ash", {
 
 minetest.register_node("runetest:meshy", {
     drawtype = "mesh",
-
-    -- Holds the texture for each "material"
     tiles = {
         "default_wood.png"
     },
-
-    -- Path to the mesh
     mesh = "lectern.b3d",
 })
 
 minetest.register_node("runetest:rest", {
     drawtype = "mesh",
-
-    -- Holds the texture for each "material"
     tiles = {
         "canvas2.png"
     },
-
-    -- Path to the mesh
 	mesh = "stylusrest.b3d",
 	groups = {crumbly = 1,oddly_breakable_by_hand = 1}
 })
 minetest.register_node("runetest:rest_occupied", {
-    drawtype = "mesh",
-
-    -- Holds the texture for each "material"
+    drawtype = "mesh", 
     tiles = {
         "canvas2.png"
     },
-
-    -- Path to the mesh
 	mesh = "stylusrestocc.b3d",
 	groups = {crumbly = 1,oddly_breakable_by_hand = 1}
 })

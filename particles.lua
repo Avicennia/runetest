@@ -1,4 +1,8 @@
 
+
+
+--  PASSIVE BEAM
+
 runetest.rune_passive_beam = function(pos)
     minetest.add_particlespawner({
         amount = 6,
@@ -27,6 +31,8 @@ runetest.rune_passive_beam = function(pos)
         glow = 2
     })
     end
+
+--  SIGIL EFFECTS
 runetest.sigil_offering_active = function(pos)
     minetest.add_particlespawner({
         amount = 60,
@@ -52,27 +58,30 @@ runetest.sigil_offering_active = function(pos)
         glow = 2
     })
     end
-    runetest.glyph_active = function(pos)
-        minetest.add_particlespawner({
-            amount = 6,
-            time = 2,
-    
-            minpos = {x=pos.x-0.3, y=pos.y-0.3, z=pos.z-0.3},
-            maxpos = {x=pos.x+0.3, y=pos.y-0.3, z=pos.z+0.3},
-            minvel = {x=0.1, y=0.4, z=0.1},
-            maxvel = {x=0.2, y=0.4, z=0.2},
-            minacc = {x=0, y=0, z=0},
-            maxacc = {x=0, y=0, z=0},
-            minexptime = 1,
-            maxexptime = 3,
-            minsize = 0.5,
-            maxsize = 0.2,
-    
-            collisiondetection = false,
-            collision_removal = false,
-            attached = ObjectRef,
-            vertical = true,
-            texture = "tex_salt.png",
-            glow = 2
-        })
-        end
+
+--  GLYPH EFFECTS
+
+runetest.glyph_active = function(pos)
+    minetest.add_particlespawner({
+        amount = 4,
+        time = 2,
+
+        minpos = {x=pos.x-0.3, y=pos.y-0.3, z=pos.z-0.3},
+        maxpos = {x=pos.x+0.3, y=pos.y-0.3, z=pos.z+0.3},
+        minvel = {x=0.1, y=0.4, z=0.1},
+        maxvel = {x=0.2, y=0.4, z=0.2},
+        minacc = {x=0, y=0, z=0},
+        maxacc = {x=0, y=0, z=0},
+        minexptime = 1,
+        maxexptime = 1,
+        minsize = 0.5,
+        maxsize = 0.2,
+
+        collisiondetection = false,
+        collision_removal = false,
+        attached = ObjectRef,
+        vertical = true,
+        texture = "twinkle.png",
+        glow = 2
+    })
+    end

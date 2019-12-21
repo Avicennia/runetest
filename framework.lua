@@ -19,7 +19,7 @@ end
     return db
 end
 
-runetest.frame.indexer = function(tab) --Converts table strings into numerical values
+runetest.frame.indexer = function(tab) --Converts table strings into numerical values. (used for internal tables here)
     result = {}
     if(tab)then
     for k,v in ipairs(tab)do
@@ -33,7 +33,7 @@ else
     return end
 end
 
-runetest.frame.chylomicron = function(t1,t2) -- compares values within tables, and if equal, assigns true
+runetest.frame.chylomicron = function(t1,t2) -- compares values within tables, and if equal, assigns true. (used per table within the larger pattern table)
     local result = 0
     for n = 1, #t1, 1 do
         if(t1[n] == t2[n])then
@@ -43,7 +43,6 @@ runetest.frame.chylomicron = function(t1,t2) -- compares values within tables, a
     if(result == #t1)then
         result = true
     else end
-    minetest.chat_send_all("CHYLO SAYS "..minetest.serialize(result))
     return result
 end
 
@@ -67,19 +66,17 @@ local assumptions = {eq = false, norm = false, id = false}
 if(data.incoming.size[1] == data.temp.size[1])then
     assumptions.eq = true;
 else 
-    minetest.chat_send_all(data.incoming.size[1])
     return end
 
 if(assumptions.eq == true and data.incoming.size[2] == data.temp.size[2])then
     assumptions.norm = true;
-else minetest.chat_send_all("SIZE ISSUE")return end
+else return end
 
 if(assumptions.eq == true and assumptions.norm == true)then --DIgitize table
     for n = 1, #tab, 1 do
     table.insert(data.outgoing.pattern,runetest.frame.indexer(data.incoming.pattern[n]))
-    minetest.chat_send_all("WHAT?")
 end
-else minetest.chat_send_all("COMPARATOR ISSUE")end
+else end
 if(assumptions.norm == true)then -- COnvoluted set of functions to test equality of variables in tables.
     local result = {}
     local chk = 0
@@ -99,20 +96,12 @@ else end
    
 
 minetest.chat_send_all(minetest.serialize(data.incoming.pattern).." | "..minetest.serialize(data.temp.pattern).." | "..minetest.serialize(data.outgoing.pattern))
+
 return assumptions.id
+
 end
 
 
 
---[[            \/    NEEDS INDIVIDUAL TEMPLATE DETERMINATION
-if(idb[1] == true)then -- CREATE table using nodename-number index
-    local numchy = {};
-    for _,v in ipairs(chy) do
-        string.len(v)
-        minetest.chat_send_all(string.sub(v,string.find(v,"_"),string.len(v)))
-    end
-else
-end
 
-return idb]]
 
