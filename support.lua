@@ -7,7 +7,7 @@ runetest.templates = {
         "basic_square"
     },
     glyphs = {
-
+        -- BASE INSCRIPTION
         --Glyph 1
     {{1,1},{1,1}},
 
@@ -15,8 +15,8 @@ runetest.templates = {
     {{3,3,3},{3,3,3},{3,3,3}},
 
         --Glyph 3
-    {{1,1,1},{1,2,1},{1,1,1}}
-    
+    {{1,1,1},{1,0,1},{1,1,1}}
+
     },
 
     

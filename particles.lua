@@ -89,7 +89,7 @@ runetest.glyph_active = function(pos)
 -- Activate
 runetest.glyph_activate1 = function(pos)
     minetest.add_particlespawner({
-        amount = 12,
+        amount = 4,
         time = 1,
 
         minpos = {x=pos.x-0.3, y=pos.y-0.3, z=pos.z-0.3},
@@ -112,7 +112,7 @@ runetest.glyph_activate1 = function(pos)
     })
 
     minetest.add_particlespawner({
-        amount = 12,
+        amount = 8,
         time = 1,
 
         minpos = {x=pos.x-0.3, y=pos.y-0.3, z=pos.z-0.3},
@@ -134,7 +134,7 @@ runetest.glyph_activate1 = function(pos)
         glow = 2
     })
     minetest.add_particlespawner({
-        amount = 12,
+        amount = 8,
         time = 1,
 
         minpos = {x=pos.x-0.3, y=pos.y-0.3, z=pos.z-0.3},

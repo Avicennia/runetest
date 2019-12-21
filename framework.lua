@@ -25,7 +25,8 @@ runetest.frame.indexer = function(tab) --Converts table strings into numerical v
     for k,v in ipairs(tab)do
         if(string.find(v,"_") and string.sub(v,string.find(v,"_")+1))then
         table.insert(result,tonumber(string.sub(v,string.find(v,"_")+1)))
-        else table.insert(result,false)
+        elseif(v == "air")then
+            table.insert(result,0)
         end
     end
     return result
@@ -95,7 +96,7 @@ if(assumptions.norm == true)then -- COnvoluted set of functions to test equality
 else end
    
 
---minetest.chat_send_all(minetest.serialize(data.incoming.pattern).." | "..minetest.serialize(data.temp.pattern).." | "..minetest.serialize(data.outgoing.pattern))
+minetest.chat_send_all(minetest.serialize(data.incoming.pattern).." | "..minetest.serialize(data.temp.pattern).." | "..minetest.serialize(data.outgoing.pattern))
 
 return assumptions.id
 
