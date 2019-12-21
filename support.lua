@@ -30,4 +30,16 @@ runetest.templates = {
 }
 
 
---  --  --  --  --  --  --  --  --  --  --  --  --  --  
+--  --  --  --  --  --  --  --  --  --  --  --  --  --
+
+minetest.register_abm({
+    nodenames = {"runetest:rune_detector_idle"},
+    neighbors = {},
+    interval = 3.0,
+    chance = 1,
+    action = function(pos)
+        --minetest.chat_send_all(minetest.serialize(minetest.find_node_near(pos,64,"group:rt_chalk",false)))
+        local dest = minetest.find_node_near(pos,64,"group:rt_chalk",false)
+        runetest.particle.detline(pos,dest)
+    end
+})

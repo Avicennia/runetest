@@ -1,18 +1,9 @@
 
 --								--
---			ACTIVEITEMS			--
+--			ACTIVE ITEMS		--
 --								--
-
-
 minetest.register_node("runetest:rune_detector_idle", {
-	tiles = {
-		"palette_stone_obsidian.png",
-		"palette_stone_obsidian.png",
-		"palette_stone_obsidian.png",
-		"palette_stone_obsidian.png",
-		"palette_stone_obsidian.png",
-		"palette_stone_obsidian.png"
-	},
+	tiles = {"palette_stone_obsidian.png"},
 	drawtype = "nodebox",
 	paramtype = "light",
 	node_box = {
@@ -26,13 +17,17 @@ minetest.register_node("runetest:rune_detector_idle", {
 		}
     },
     on_construct = function(pos)
-        runetest.rune_passive_beam(pos)
+		local timer = minetest.get_node_timer(pos)
+		timer:start(2)
+	end,
+	on_timer = function(pos)
+		runetest.rune_passive_beam(pos)
+		local timer = minetest.get_node_timer(pos)
+		timer:start(2)
 	end,
 	groups = {oddly_breakable_by_hand = 2}
 })
--------------------------------------------------------------------
-
-
+-------------------------------------------------------
 ---                     GLYPHS                      ---
 ---                                                 ---
 ---                                                 ---
@@ -62,9 +57,7 @@ end
 --	--	--	Various Glyphs	--	--	--
 for n = 1, #runetest.glyphs-1, 1 do
 minetest.register_node("runetest:glyph_"..n.."active", {
-	tiles = {
-		"glyph_" .. n .. ".png".."^[mask:palette_stone_obsidian.png",
-	},
+	tiles = {"glyph_" .. n .. ".png".."^[mask:palette_stone_obsidian.png",},
 	drawtype = "nodebox",
 	paramtype = "light",
 	node_box = {
@@ -88,9 +81,7 @@ minetest.register_node("runetest:glyph_"..n.."active", {
 	end
 })
 minetest.register_node("runetest:glyph_"..n, {
-	tiles = {
-		"glyph_" .. n .. ".png",
-	},
+	tiles = {"glyph_" .. n .. ".png",},
 	drawtype = "nodebox",
 	paramtype = "light",
 	node_box = {
@@ -107,9 +98,7 @@ minetest.register_node("runetest:glyph_"..n, {
 end
 --	--	--	--	--	Offering Sigils
 minetest.register_node("runetest:offering_sigil_corner", {
-	tiles = {
-		"offering_circle_corner.png",
-	},
+	tiles = {"offering_circle_corner.png",},
 	drawtype = "nodebox",
 	paramtype = "light",
 	node_box = {
@@ -122,9 +111,7 @@ minetest.register_node("runetest:offering_sigil_corner", {
 })
 
 minetest.register_node("runetest:offering_sigil_vertex", {
-	tiles = {
-		"offering_circle_vertice.png",
-	},
+	tiles = {"offering_circle_vertice.png",},
 	drawtype = "nodebox",
 	paramtype = "light",
 	node_box = {
@@ -138,9 +125,7 @@ minetest.register_node("runetest:offering_sigil_vertex", {
 
 --	--	--	--	--	--	--	Reagents	--	--	--	--	--	--	--
 minetest.register_node("runetest:reagent_humblesalt", {
-	tiles = {
-		"tex_salt.png"
-	},
+	tiles = {"tex_salt.png"},
 	drawtype = "nodebox",
 	paramtype = "light",
 	node_box = {
@@ -165,9 +150,7 @@ minetest.register_node("runetest:reagent_humblesalt", {
 })
 --	--	--	--	--	--	--	ALTARS
 minetest.register_node("runetest:dev", {
-	tiles = {
-		"me_obelisk_panel_port.png"
-	},
+	tiles = {"me_obelisk_panel_port.png"},
 	drawtype = "nodebox",
 	paramtype = "light",
 	node_box = {
@@ -198,25 +181,19 @@ minetest.register_node("runetest:ash", {
 
 minetest.register_node("runetest:meshy", {
     drawtype = "mesh",
-    tiles = {
-        "default_wood.png"
-    },
+    tiles = {"default_wood.png"},
     mesh = "lectern.b3d",
 })
 
 minetest.register_node("runetest:rest", {
     drawtype = "mesh",
-    tiles = {
-        "canvas2.png"
-    },
+    tiles = {"canvas2.png"},
 	mesh = "stylusrest.b3d",
 	groups = {crumbly = 1,oddly_breakable_by_hand = 1}
 })
 minetest.register_node("runetest:rest_occupied", {
     drawtype = "mesh", 
-    tiles = {
-        "canvas2.png"
-    },
+    tiles = {"canvas2.png"},
 	mesh = "stylusrestocc.b3d",
 	groups = {crumbly = 1,oddly_breakable_by_hand = 1}
 })

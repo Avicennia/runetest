@@ -1,18 +1,16 @@
 
-
-
 --  PASSIVE BEAM
 
 runetest.rune_passive_beam = function(pos)
     minetest.add_particlespawner({
         amount = 6,
-        time = 0,
+        time = 1,
     --  ^ If time is 0 has infinite lifespan and spawns the amount on a
     --  ^ per-second basis.
-        minpos = {x=pos.x-0.05, y=pos.y, z=pos.z-0.05},
+        minpos = {x=pos.x-0.05, y=pos.y-0.3, z=pos.z-0.05},
         maxpos = {x=pos.x-0.05, y=pos.y, z=pos.z-0.05},
         minvel = {x=0, y=0, z=0},
-        maxvel = {x=0, y=0.1, z=0},
+        maxvel = {x=0, y=0.08, z=0},
         minacc = {x=0, y=0, z=0},
         maxacc = {x=0, y=0, z=0},
         minexptime = 1,
@@ -145,6 +143,30 @@ runetest.glyph_activate1 = function(pos)
         maxacc = {x=0.5, y=0.5, z=0.5},
         minexptime = 0.1,
         maxexptime = 0.2,
+        minsize = 0.3,
+        maxsize = 0.7,
+
+        collisiondetection = false,
+        collision_removal = false,
+        attached = ObjectRef,
+        vertical = true,
+        texture = "twinkleflame.png",
+        glow = 2
+    })
+end
+runetest.particle.detline = function(pos, des)
+    minetest.add_particlespawner({
+        amount = 14,
+        time = 2,
+
+        minpos = {x=pos.x, y=pos.y, z=pos.z},
+        maxpos = {x=pos.x, y=pos.y, z=pos.z},
+        minvel = {x=0, y=1, z=0},
+        maxvel = {x=des.x-pos.x, y=des.y-pos.y, z=des.z-pos.z},
+        minacc = {x=0, y=0, z=0},
+        maxacc = {x=0, y=0, z=0},
+        minexptime = 0.9,
+        maxexptime = 1.8,
         minsize = 0.3,
         maxsize = 0.7,
 
