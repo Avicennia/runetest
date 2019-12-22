@@ -3,9 +3,6 @@
 --  --  --  --  --  --  -- Template Glyphs and Runes --  --  --  --  --  --  --  
 
 runetest.templates = {
-    glyphs_names = {
-        "basic_square"
-    },
     glyphs = {
         -- BASE INSCRIPTION
         --Glyph 1
@@ -20,26 +17,26 @@ runetest.templates = {
     {{28,28,28},{28,0,28},{28,28,28}}
 
     },
-
-    
-    runes = {
-
-    }
-
+    glyphs_info = {},
 
 }
-
+for n = 1, #runetest.templates.glyphs, 1 do
+    runetest.templates.glyphs_info[n] = {#runetest.templates.glyphs[n],"First Glyph",{},{"place", "runetest:rest"}}
+end
 
 --  --  --  --  --  --  --  --  --  --  --  --  --  --
 
 minetest.register_abm({
     nodenames = {"runetest:rune_detector_idle"},
     neighbors = {},
-    interval = 3.0,
+    interval = 2.0,
     chance = 1,
     action = function(pos)
         --minetest.chat_send_all(minetest.serialize(minetest.find_node_near(pos,64,"group:rt_chalk",false)))
         local dest = minetest.find_node_near(pos,64,"group:rt_chalk",false)
+        if(dest)then
         runetest.particle.detline(pos,dest)
+        else
+        end
     end
 })

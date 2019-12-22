@@ -60,11 +60,17 @@ minetest.register_node("runetest:glyph_"..n.."active", {
 	tiles = {"glyph_" .. n .. ".png".."^[mask:palette_stone_obsidian.png",},
 	drawtype = "nodebox",
 	paramtype = "light",
+	connects_to = {"group:rt_chalk"},
+	connect_sides = { "top", "bottom", "front", "left", "back", "right" },
 	node_box = {
-		type = "fixed",
+		type = "connected",
 		fixed = {
 			{-0.5, -0.5, -0.5, 0.5, -0.4925, 0.5},
-		}
+		},
+		connect_back = {-0.0625, -0.5, 0.0625, 0.0625, -0.48875, 0.5},
+		connect_right = {0.0625, -0.5, -0.0625, 0.5, -0.48875, 0.0625},
+		connect_left = {-0.5, -0.5, -0.0625, -0.0625, -0.48875, 0.0625},
+		connect_front = {-0.0625, -0.5, -0.5, 0.0625, -0.48875, -0.0625},
 	},
 	groups = {oddly_breakable_by_hand = 3, falling_node = 3},
 	on_construct = function(pos)
@@ -165,9 +171,11 @@ minetest.register_node("runetest:dev", {
 		}
 	},
 	on_punch = function(pos)
-		minetest.chat_send_all(minetest.serialize(runetest.frame.anal(runetest.frame.snap(pos,3),4)))
+		--minetest.chat_send_all(minetest.serialize(runetest.frame.anal(runetest.frame.snap(pos,3),4)))
 		if(runetest.frame.anal(runetest.frame.snap(pos,3),4) == true)then
 			runetest.frame.poof(pos,4)
+			minetest.sound_play({name = "sfx_bell", gain = 1.0, pitch = 1.0},{gain = 1.0, fade = 0.0, pitch = 1.0})
+			runetest.frame.place({x=pos.x,y=pos.y+1,z=pos.z},4)
 		else end
 	end,
 })

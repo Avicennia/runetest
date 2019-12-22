@@ -155,14 +155,15 @@ runetest.glyph_activate1 = function(pos)
     })
 end
 runetest.particle.detline = function(pos, des)
+    local dir = vector.direction(pos,des)
     minetest.add_particlespawner({
-        amount = 14,
+        amount = 10,
         time = 2,
 
         minpos = {x=pos.x, y=pos.y, z=pos.z},
         maxpos = {x=pos.x, y=pos.y, z=pos.z},
-        minvel = {x=0, y=1, z=0},
-        maxvel = {x=des.x-pos.x, y=des.y-pos.y, z=des.z-pos.z},
+        minvel = {x=0, y=0, z=0},
+        maxvel = {x=dir.x, y=dir.y, z=dir.z},
         minacc = {x=0, y=0, z=0},
         maxacc = {x=0, y=0, z=0},
         minexptime = 0.9,

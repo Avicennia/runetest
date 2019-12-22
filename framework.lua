@@ -55,7 +55,7 @@ local data = {
                 pattern = tab,
                 size = {#tab, #tab[1]}
     },
-    temp = {name = runetest.templates.glyphs_names[index],
+    temp = {--name = runetest.templates.glyphs_names[index],
             pattern = runetest.templates.glyphs[index],
             size = {#runetest.templates.glyphs[index],#runetest.templates.glyphs[index][1]}
     },
@@ -97,8 +97,8 @@ if(assumptions.norm == true)then -- COnvoluted set of functions to test equality
 else end
    
 
-minetest.chat_send_all(minetest.serialize(data.incoming.pattern).." | "..minetest.serialize(data.temp.pattern).." | "..minetest.serialize(data.outgoing.pattern))
-
+--minetest.chat_send_all(minetest.serialize(data.incoming.pattern).." | "..minetest.serialize(data.temp.pattern).." | "..minetest.serialize(data.outgoing.pattern))
+--minetest.chat_send_all(minetest.serialize(runetest.templates.glyphs[index]).." [|] "..runetest.templates.glyphs_info[index][1])
 return assumptions.id
 
 end
@@ -121,7 +121,12 @@ runetest.frame.poof = function(pos,diam)
     end
 end
 
+runetest.frame.place = function(pos,index)
 
+    if(runetest.templates.glyphs_info[index][4][1] == "place")then
+        minetest.set_node(pos, {name = runetest.templates.glyphs_info[index][4][2]})
+    else end
+end
 
 
 
