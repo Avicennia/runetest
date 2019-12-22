@@ -175,6 +175,8 @@ minetest.register_node("runetest:dev", {
 		for n = 1, 4, 1 do
 		if(runetest.frame.discriminate(pos,n) == true)then
 			minetest.chat_send_all("Diameter of "..n.." worked!")
+			minetest.add_entity({x=pos.x,y=pos.y+2,z=pos.z},"runetest:ent_tablet_26", nil)
+			minetest.add_entity({x=pos.x,y=pos.y+4,z=pos.z},"runetest:ent_tablet_26_active", nil)
 			return true
 		else end
 	end
