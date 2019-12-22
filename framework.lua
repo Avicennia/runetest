@@ -1,7 +1,7 @@
 
 
 
-
+-- CENSUS OFFICER FUNCTION
 runetest.frame.snap = function(orig,diam)   --Given parameters, will retrieve all nodes within a given radius.
     local db = {}
     --Grabs nodenames in a line outward including center for diam number of nodes.
@@ -19,6 +19,7 @@ end
     return db
 end
 
+-- NAME-NUM INDEXER FUNCTION
 runetest.frame.indexer = function(tab) --Converts table strings into numerical values. (used for internal tables here)
     result = {}
     if(tab)then
@@ -35,6 +36,7 @@ else
     return end
 end
 
+-- VERIFIER FUNCTION
 runetest.frame.chylomicron = function(t1,t2) -- compares values within tables, and if equal, assigns true. (used per table within the larger pattern table)
     local result = 0
     for n = 1, #t1, 1 do
@@ -48,15 +50,14 @@ runetest.frame.chylomicron = function(t1,t2) -- compares values within tables, a
     return result
 end
 
-
+-- MAIN SEARCH FUNCTION
 runetest.frame.anal = function(tab,index) --Disassemble, compare, determine, line-by-line from given table.
 local data = {
     incoming = {name = "unknown",
                 pattern = tab,
                 size = {#tab, #tab[1]}
     },
-    temp = {--name = runetest.templates.glyphs_names[index],
-            pattern = runetest.templates.glyphs[index],
+    temp = {pattern = runetest.templates.glyphs[index],
             size = {#runetest.templates.glyphs[index],#runetest.templates.glyphs[index][1]}
     },
     outgoing = {name = false, pattern = {}}
@@ -64,8 +65,8 @@ local data = {
 
 local assumptions = {eq = false, norm = false, id = false}
 
---COUNT TEST
-if(data.incoming.size[1] == data.temp.size[1])then
+
+if(data.incoming.size[1] == data.temp.size[1])then --Count Test
     assumptions.eq = true;
 else 
     return end
@@ -102,6 +103,27 @@ else end
 return assumptions.id
 
 end
+
+--BRINGING THE FAMILY TOGETHER FUNCTION
+runetest.frame.discriminate = function(orig,diam)
+    local snapshot = runetest.frame.snap(orig,diam)
+    for n = 1, #runetest.templates.glyphs, 1 do
+    local analysis = runetest.frame.anal(snapshot,n)
+    if(analysis == true)then
+        runetest.frame.poof(orig,diam + 1)
+			minetest.sound_play({name = "sfx_bell", gain = 1.0, pitch = 1.0},{gain = 1.0, fade = 0.0, pitch = 1.0})
+			runetest.frame.place({x=orig.x,y=orig.y+1,z=orig.z},n)
+			minetest.chat_send_all("Recognized glyph pattern | "..n.. " | !!")
+        return true
+    else
+    end
+
+end
+end
+
+
+
+
 
 
 -------!!!!!!!!!

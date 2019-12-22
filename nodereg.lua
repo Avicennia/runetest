@@ -172,11 +172,12 @@ minetest.register_node("runetest:dev", {
 	},
 	on_punch = function(pos)
 		--minetest.chat_send_all(minetest.serialize(runetest.frame.anal(runetest.frame.snap(pos,3),4)))
-		if(runetest.frame.anal(runetest.frame.snap(pos,3),4) == true)then
-			runetest.frame.poof(pos,4)
-			minetest.sound_play({name = "sfx_bell", gain = 1.0, pitch = 1.0},{gain = 1.0, fade = 0.0, pitch = 1.0})
-			runetest.frame.place({x=pos.x,y=pos.y+1,z=pos.z},4)
+		for n = 1, 4, 1 do
+		if(runetest.frame.discriminate(pos,n) == true)then
+			minetest.chat_send_all("Diameter of "..n.." worked!")
+			return true
 		else end
+	end
 	end,
 })
 minetest.register_node("runetest:ash", {
@@ -203,5 +204,11 @@ minetest.register_node("runetest:rest_occupied", {
     drawtype = "mesh", 
     tiles = {"canvas2.png"},
 	mesh = "stylusrestocc.b3d",
+	groups = {crumbly = 1,oddly_breakable_by_hand = 1}
+})
+minetest.register_node("runetest:table", {
+    drawtype = "mesh", 
+    tiles = {"canvas2.png"},
+	mesh = "table.b3d",
 	groups = {crumbly = 1,oddly_breakable_by_hand = 1}
 })
