@@ -9,7 +9,8 @@ runetest = {
     sizes = {2,4,6,8,10},
     lex_alt = {"runetest:glyph_n",99,"air",98,},
     lex = {},
-    particle = {}
+    particle = {},
+    ticker_ticker = 1
 }
 
 for n=1,#runetest.glyphs,1 do

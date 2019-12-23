@@ -145,7 +145,7 @@ end
 
 runetest.frame.place = function(pos,index)
     if(runetest.templates.glyphs_info[index][4][1] == "place")then
-        minetest.add_entity(pos, "runetest:ent_tablet_"..index)
+        minetest.add_entity(pos, "runetest:ent_lemma_"..index)
     else end
 end
 

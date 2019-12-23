@@ -6,25 +6,25 @@ runetest.templates = {
     glyphs = {
         -- BASE INSCRIPTION
     --Glyph 1
-    {{0,28,0},{28,28,28},{0,28,0}},
+    {{28,0,28},{28,28,28},{0,28,0}},
     --Glyph 2
-    {{28,0,28},{0,0,0},{28,0,28}},
+    {{28,0,28},{0,28,0},{28,0,28}},
     --Glyph 3
-    {{0,0,0},{0,28,0},{0,0,0}},
+    {{28,28,28},{28,0,28},{28,0,28}},
     --Glyph 4
-    {{28,28,28},{28,0,28},{28,28,28}},
-    --Glyph 5
-    {{4,0,0},{5,0,0},{12,0,0}},
-    --Glyph 6
-    {{1,1,1},{1,1,1},{1,1,1}},
-    --Glyph 7
-    {{28,0,28},{28,0,28},{28,28,28}},
-    --Glyph 8
-    {{28,0,28},{28,28,28},{28,0,28}},
-    --Glyph 9
     {{28,0,0},{28,28,0},{28,0,0}},
+    --Glyph 5
+    {{28,28,0},{28,28,0},{28,0,0}},
+    --Glyph 6
+    {{0,28,0},{28,28,28},{0,0,0}},
+    --Glyph 7
+    {{0,0,28},{0,28,28},{28,28,}},
+    --Glyph 8
+    {{28,0,0},{0,28,0},{0,0,28}},
+    --Glyph 9
+    {{0,28,0},{28,28,28},{0,28,0}},
     --Glyph 10
-    {{},{},{}},
+    {{28,28},{28,28}},
     --Glyph 11
     {{},{},{}},
     --Glyph 12
@@ -92,9 +92,9 @@ for n = 1, #runetest.glyphs, 1 do
 local stonetab = {
     initial_properties = {
         hp_max = 1,
-        physical = false,
+        physical = true,
         collide_with_objects = false,
-        collisionbox = {-0.0, -0.0, -0.0, 0.0, 0.0, 0.0},
+        collisionbox = {-0.3, -0.3, -0.3, 0.3, 0.3, 0.3},
         visual = "sprite",
         visual_size = {x = 0.4, y = 0.4},
         textures = {"glyph_"..n..".png"},
@@ -109,6 +109,43 @@ local stonetab = {
             self.object:move_to({x=table.x,y=table.y+1,z=table.z-1+#neighborhood/3})
         else end
     end,
+    on_step = function(self)
+        local pos = self.object:get_pos()
+        local table = minetest.find_node_near(pos, 5, "runetest:table", true)
+        if(table)then
+            runetest.ticker_ticker = runetest.ticker_ticker + 0.1
+            if(runetest.ticker_ticker >= 6)then
+                runetest.ticker_ticker = 1
+            else end
+            local positions = {{x=table.x,y=table.y+1,z=table.z+0.3},{x=table.x,y=table.y+1.4,z=table.z+0.6},{x=table.x,y=table.y+1.8,z=table.z+0.3},{x=table.x,y=table.y+1.8,z=table.z-0.3},{x=table.x,y=table.y+1.4,z=table.z-0.6},{x=table.x,y=table.y+1,z=table.z+0.3}}
+            if(runetest.ticker_ticker == 1)then
+            self.object:move_to(positions[runetest.ticker_ticker])
+            elseif(runetest.ticker_ticker == 2)then
+            self.object:move_to(positions[runetest.ticker_ticker])
+            elseif(runetest.ticker_ticker == 3)then
+            self.object:move_to(positions[runetest.ticker_ticker])
+            elseif(runetest.ticker_ticker == 4)then
+            self.object:move_to(positions[runetest.ticker_ticker])
+            elseif(runetest.ticker_ticker == 5)then
+            self.object:move_to(positions[runetest.ticker_ticker])
+            elseif(runetest.ticker_ticker == 6)then
+            self.object:move_to(positions[runetest.ticker_ticker])
+            else end
+            minetest.chat_send_all(runetest.ticker_ticker)
+            --[[
+            runetest.ticker_ticker = runetest.ticker_ticker + 0.2
+            if(runetest.ticker_ticker < 100)then
+            self.object:move_to({x=table.x,y=table.y+1+runetest.ticker_ticker/100,z=table.z-runetest.ticker_ticker/100})
+            elseif(runetest.ticker_ticker >= 100 and runetest.ticker_ticker < 200) then
+            self.object:move_to({x=table.x,y=table.y+1+runetest.ticker_ticker/100,z=table.z-1+runetest.ticker_ticker/100})
+            elseif(runetest.ticker_ticker > 200 and runetest.ticker_ticker < 300)then
+            self.object:move_to({x=table.x,y=table.y-1+runetest.ticker_ticker/100,z=table.z-1+runetest.ticker_ticker/100})
+            elseif(runetest.ticker_ticker > 300 and runetest.ticker_ticker < 400)then
+            self.object:move_to({x=table.x,y=table.y-1+runetest.ticker_ticker/100,z=table.z-1+runetest.ticker_ticker/100})
+
+            end]]
+        else end
+    end
 }
 
 minetest.register_entity("runetest:ent_tablet_"..n, stonetab)
@@ -130,4 +167,21 @@ local stonetab = {
     end,
 }
 minetest.register_entity("runetest:ent_tablet_"..n.."_active", stonetab)
+end
+
+for n = 1, 9, 1 do
+local stonetab = {
+    initial_properties = {
+        hp_max = 1,
+        physical = true,
+        collide_with_objects = false,
+        collisionbox = {-0.3, -0.3, -0.3, 0.3, 0.3, 0.3},
+        visual = "sprite",
+        visual_size = {x = 0.4, y = 0.4},
+        textures = {"lemma_"..n..".png"},
+        spritediv = {x = 1, y = 1},
+        initial_sprite_basepos = {x = 0, y = 0},
+    }}
+
+    minetest.register_entity("runetest:ent_lemma_"..n, stonetab)
 end
