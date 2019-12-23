@@ -175,9 +175,14 @@ minetest.register_node("runetest:dev", {
 		for n = 1, 4, 1 do
 		if(runetest.frame.discriminate(pos,n) == true)then
 			minetest.chat_send_all("Diameter of "..n.." worked!")
-			minetest.add_entity({x=pos.x,y=pos.y+2,z=pos.z},"runetest:ent_tablet_26", nil)
-			minetest.add_entity({x=pos.x,y=pos.y+4,z=pos.z},"runetest:ent_tablet_26_active", nil)
-			return true
+        local tablepos = minetest.find_node_near(pos, 2, "runetest:table", false)
+        if(tablepos)then
+            local others = minetest.get_objects_inside_radius(pos, 3)
+			if(others)then
+				minetest.chat_send_all(#others)
+                minetest.add_entity({x = tablepos.x,y = tablepos.y+1.2,z = tablepos.z-0.80+(#others/5.2)},"runetest:ent_tablet_16",nil)
+            else end
+        else end
 		else end
 	end
 	end,
@@ -193,7 +198,8 @@ minetest.register_node("runetest:ash", {
 minetest.register_node("runetest:meshy", {
     drawtype = "mesh",
     tiles = {"default_wood.png"},
-    mesh = "lectern.b3d",
+	mesh = "lectern.b3d",
+	groups = {crumbly = 1,oddly_breakable_by_hand = 1}
 })
 
 minetest.register_node("runetest:rest", {

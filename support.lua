@@ -40,7 +40,7 @@ minetest.register_abm({
         end
     end
 })
-
+ lolosia = 1
 
 --  --  --  ENTITIES    --  --  --
 --  --  --              --  --  --
@@ -60,7 +60,7 @@ local stonetab = {
     },
     on_activate = function()
         minetest.chat_send_all("Hello World.")
-    end
+    end,
 }
 
 minetest.register_entity("runetest:ent_tablet_"..n, stonetab)
@@ -79,7 +79,7 @@ local stonetab = {
     },
     on_activate = function()
         minetest.chat_send_all("Hello World!")
-    end
+    end,
 }
 minetest.register_entity("runetest:ent_tablet_"..n.."_active", stonetab)
 end
