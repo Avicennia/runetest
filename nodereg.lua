@@ -170,29 +170,20 @@ minetest.register_node("runetest:dev", {
 			{-0.375, -0.5, -0.375, 0.375, -0.375, 0.375},
 		}
 	},
-	on_punch = function(pos)
+on_punch = function(pos)
 		--minetest.chat_send_all(minetest.serialize(runetest.frame.anal(runetest.frame.snap(pos,3),4)))
 		for n = 1, 4, 1 do
-		if(runetest.frame.discriminate(pos,n) == true)then
-			minetest.chat_send_all("Diameter of "..n.." worked!")
-        local tablepos = minetest.find_node_near(pos, 2, "runetest:table", false)
-        if(tablepos)then
-            local others = minetest.get_objects_inside_radius(pos, 3)
-			if(others)then
-				minetest.chat_send_all(#others)
-                minetest.add_entity({x = tablepos.x,y = tablepos.y+1.2,z = tablepos.z-0.80+(#others/5.2)},"runetest:ent_tablet_16",nil)
-            else end
-        else end
+		if(runetest.frame.discriminate(pos,n) >= 1)then
+		minetest.chat_send_all("Diameter of "..n.." worked!")
 		else end
 	end
-	end,
+end,
 })
 minetest.register_node("runetest:ash", {
 	description = "Inert Ash",
 	tiles = {"ash.png"},
 	groups = {crumbly = 2, oddly_breakable_by_hand = 1}
 })
-
 --	--	--	MISC
 
 minetest.register_node("runetest:meshy", {

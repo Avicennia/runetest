@@ -32,8 +32,7 @@ runetest.frame.indexer = function(tab) --Converts table strings into numerical v
         end
     end
     return result
-else 
-    return end
+else end
 end
 
 -- VERIFIER FUNCTION
@@ -68,12 +67,11 @@ local assumptions = {eq = false, norm = false, id = false}
 
 if(data.incoming.size[1] == data.temp.size[1])then --Count Test
     assumptions.eq = true;
-else 
-    return end
+else end
 
 if(assumptions.eq == true and data.incoming.size[2] == data.temp.size[2])then
     assumptions.norm = true;
-else return end
+else end
 
 if(assumptions.eq == true and assumptions.norm == true)then --DIgitize table
     for n = 1, #tab, 1 do
@@ -96,30 +94,32 @@ if(assumptions.norm == true)then -- COnvoluted set of functions to test equality
     else end
 
 else end
-   
 
+local rt = {assumptions.id, 4}
 --minetest.chat_send_all(minetest.serialize(data.incoming.pattern).." | "..minetest.serialize(data.temp.pattern).." | "..minetest.serialize(data.outgoing.pattern))
 --minetest.chat_send_all(minetest.serialize(runetest.templates.glyphs[index]).." [|] "..runetest.templates.glyphs_info[index][1])
-return assumptions.id
+return rt
 
 end
 
 --BRINGING THE FAMILY TOGETHER FUNCTION
 runetest.frame.discriminate = function(orig,diam)
+    local numb = 0
     local snapshot = runetest.frame.snap(orig,diam)
     for n = 1, #runetest.templates.glyphs, 1 do
     local analysis = runetest.frame.anal(snapshot,n)
-    if(analysis == true)then
+    if(analysis[1] == true)then
         runetest.frame.poof(orig,diam + 1)
 			minetest.sound_play({name = "sfx_bell", gain = 1.0, pitch = 1.0},{gain = 1.0, fade = 0.0, pitch = 1.0})
 			runetest.frame.place({x=orig.x,y=orig.y+1,z=orig.z},n)
-			minetest.chat_send_all("Recognized glyph pattern | "..n.. " | !!")
-        return true
-    else
+            minetest.chat_send_all("Recognized glyph pattern | "..n.. " | !!")
+            numb = n;
+            else minetest.chat_send_all("nope") end
+    
     end
+    return numb
+end
 
-end
-end
 
 
 
@@ -144,9 +144,8 @@ runetest.frame.poof = function(pos,diam)
 end
 
 runetest.frame.place = function(pos,index)
-
     if(runetest.templates.glyphs_info[index][4][1] == "place")then
-        minetest.set_node(pos, {name = runetest.templates.glyphs_info[index][4][2]})
+        minetest.add_entity(pos, "runetest:ent_tablet_"..index)
     else end
 end
 
