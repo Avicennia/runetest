@@ -24,7 +24,7 @@ runetest.templates = {
     --Lemma 9
     {{0,28,0},{28,28,28},{0,28,0}},
     --Glyph 1
-    {{28,28},{28,28}},
+    {{28,28,28,28,28},{28,28,28,28,28},{28,28,28,28,28},{28,28,28,28,28},{28,28,28,28,28}},
     --Glyph 2
     {{},{},{}},
     --Glyph 3
@@ -152,7 +152,7 @@ local stonetab = {
     end
 }
 
-minetest.register_entity("runetest:ent_tablet_"..n, stonetab)
+minetest.register_entity("runetest:ent_glyph_"..n, stonetab)
 
 local stonetab = {
     initial_properties = {
@@ -170,7 +170,7 @@ local stonetab = {
         minetest.chat_send_all("Hello World!")
     end,
 }
-minetest.register_entity("runetest:ent_tablet_"..n.."_active", stonetab)
+minetest.register_entity("runetest:ent_glyph_"..n.."_active", stonetab)
 end
 
 for n = 1, 9, 1 do

@@ -121,7 +121,7 @@ runetest.frame.discriminate = function(orig,diam)
         elseif(n >= 10)then
             runetest.frame.poof(orig,diam + 1)
 			minetest.sound_play({name = "sfx_bell", gain = 1.0, pitch = 1.0},{gain = 1.0, fade = 0.0, pitch = 1.0})
-			runetest.frame.place({x=orig.x,y=orig.y+1,z=orig.z},n + 9)
+			runetest.frame.place({x=orig.x,y=orig.y+1,z=orig.z},n)
             numb = n;
             tag = "glyph"
             minetest.chat_send_all("Recognized " .. tag .. " pattern | "..n.. " | !!")
@@ -160,9 +160,15 @@ runetest.frame.poof = function(pos,diam)
 end
 
 runetest.frame.place = function(pos,index)
-    if(runetest.templates.glyphs_info[index+9][4][1] == "place")then
+    if(runetest.templates.glyphs_info[index][1] <= 3)then
+    if(runetest.templates.glyphs_info[index][4][1] == "place")then
         minetest.add_entity(pos, "runetest:ent_lemma_"..index)
     else end
+elseif(runetest.templates.glyphs_info[index][1] >= 4)then
+    if(runetest.templates.glyphs_info[index][4][1] == "place")then
+        minetest.add_entity(pos, "runetest:ent_glyph_"..index-9)
+    else end
+end
 end
 
 

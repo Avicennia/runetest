@@ -66,27 +66,7 @@ end
 
 
 
-minetest.register_node("runetest:glyph_28", {
-	tiles = {"glyphtex.png",},
-	groups = {oddly_breakable_by_hand = 3, falling_node = 3,rt_chalk = 1},
-	drawtype = "nodebox",
-	paramtype = "light",
-	connects_to = {"group:rt_chalk"},
-	connect_sides = { "top", "bottom", "front", "left", "back", "right" },
-	node_box = {
-		type = "connected",
-		fixed = {
-			{-0.0625, -0.5, -0.0625, 0.0625, -0.48875, 0.0625},
-		},
-		connect_back = {-0.0625, -0.5, 0.0625, 0.0625, -0.48875, 0.5},
-		connect_right = {0.0625, -0.5, -0.0625, 0.5, -0.48875, 0.0625},
-		connect_left = {-0.5, -0.5, -0.0625, -0.0625, -0.48875, 0.0625},
-		connect_front = {-0.0625, -0.5, -0.5, 0.0625, -0.48875, -0.0625},
-	},
-	on_punch= function(pos)
-	minetest.remove_node(pos)
-end
-})
+
 
 
 --	--	--	Various Glyphs	--	--	--
@@ -137,6 +117,27 @@ minetest.register_node("runetest:glyph_"..n, {
 	end
 })
 end
+minetest.register_node("runetest:glyph_28", {
+	tiles = {"glyphtex.png",},
+	groups = {oddly_breakable_by_hand = 3, falling_node = 3,rt_chalk = 1},
+	drawtype = "nodebox",
+	paramtype = "light",
+	connects_to = {"group:rt_chalk"},
+	connect_sides = { "top", "bottom", "front", "left", "back", "right" },
+	node_box = {
+		type = "connected",
+		fixed = {
+			{-0.0625, -0.5, -0.0625, 0.0625, -0.48875, 0.0625},
+		},
+		connect_back = {-0.0625, -0.5, 0.0625, 0.0625, -0.48875, 0.5},
+		connect_right = {0.0625, -0.5, -0.0625, 0.5, -0.48875, 0.0625},
+		connect_left = {-0.5, -0.5, -0.0625, -0.0625, -0.48875, 0.0625},
+		connect_front = {-0.0625, -0.5, -0.5, 0.0625, -0.48875, -0.0625},
+	},
+	on_punch= function(pos)
+	minetest.remove_node(pos)
+end
+})
 --	--	--	--	--	Offering Sigils
 minetest.register_node("runetest:offering_sigil_corner", {
 	tiles = {"offering_circle_corner.png",},
