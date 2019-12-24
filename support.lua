@@ -5,26 +5,44 @@
 runetest.templates = {
     glyphs = {
         -- BASE INSCRIPTION
-    --Glyph 1
+    --Lemma 1
     {{28,0,28},{28,28,28},{0,28,0}},
-    --Glyph 2
+    --Lemma 2
     {{28,0,28},{0,28,0},{28,0,28}},
-    --Glyph 3
-    {{28,28,28},{28,0,28},{28,0,28}},
-    --Glyph 4
+    --Lemma 3
+    {{28,28,28},{28,40,28},{28,0,28}},
+    --Lemma 4
     {{28,0,0},{28,28,0},{28,0,0}},
-    --Glyph 5
+    --Lemma 5
     {{28,28,0},{28,28,0},{28,0,0}},
-    --Glyph 6
+    --Lemma 6
     {{0,28,0},{28,28,28},{0,0,0}},
-    --Glyph 7
+    --Lemma 7
     {{0,0,28},{0,28,28},{28,28,}},
-    --Glyph 8
+    --Lemma 8
     {{28,0,0},{0,28,0},{0,0,28}},
-    --Glyph 9
+    --Lemma 9
     {{0,28,0},{28,28,28},{0,28,0}},
-    --Glyph 10
+    --Glyph 1
     {{28,28},{28,28}},
+    --Glyph 2
+    {{},{},{}},
+    --Glyph 3
+    {{},{},{}},
+    --Glyph 4
+    {{},{},{}},
+    --Glyph 5
+    {{},{},{}},
+    --Glyph 6
+    {{},{},{}},
+    --Glyph 7
+    {{},{},{}},
+    --Glyph 8
+    {{},{},{}},
+    --Glyph 9
+    {{},{},{}},
+    --Glyph 10
+    {{},{},{}},
     --Glyph 11
     {{},{},{}},
     --Glyph 12
@@ -40,31 +58,17 @@ runetest.templates = {
     --Glyph 17
     {{},{},{}},
     --Glyph 18
-    {{},{},{}},
-    --Glyph 19
-    {{},{},{}},
-    --Glyph 20
-    {{},{},{}},
-    --Glyph 21
-    {{},{},{}},
-    --Glyph 22
-    {{},{},{}},
-    --Glyph 23
-    {{},{},{}},
-    --Glyph 24
-    {{},{},{}},
-    --Glyph 25
-    {{},{},{}},
-    --Glyph 26
-    {{},{},{}},
-    --Glyph 27
     {{},{},{}}
     },
     glyphs_info = {},
+    alternatives = {}
 
 }
-for n = 1, #runetest.templates.glyphs, 1 do
-    runetest.templates.glyphs_info[n] = {#runetest.templates.glyphs[n],"Inscription for Glyph_"..n,{},{"place", n}}
+for n = 1, (#runetest.templates.glyphs-(#runetest.templates.glyphs-9)), 1 do
+    runetest.templates.glyphs_info[n] = {#runetest.templates.glyphs[n],"Inscription for Lemma_" .. n,{propns},{"place", n}}
+end
+for n = 10, #runetest.templates.glyphs, 1 do
+    runetest.templates.glyphs_info[n] = {#runetest.templates.glyphs[n],"Inscription for Glyph_"..n,{propns},{"place", n}}
 end
 
 --  --  --  --  --  --  --  --  --  --  --  --  --  --
@@ -181,7 +185,15 @@ local stonetab = {
         textures = {"lemma_"..n..".png"},
         spritediv = {x = 1, y = 1},
         initial_sprite_basepos = {x = 0, y = 0},
-    }}
-
+    },
+    on_activate = function(self)
+        local pos = self.object:get_pos()
+        local table = minetest.find_node_near(pos, 2, "runetest:table", false)
+        if(table)then
+            local neighborhood = minetest.get_objects_inside_radius({x=table.x,y=table.y+1,z=table.z},1.5)
+            self.object:move_to({x=table.x,y=table.y+1,z=table.z-1+#neighborhood/3})
+        else end
+    end
+}
     minetest.register_entity("runetest:ent_lemma_"..n, stonetab)
 end

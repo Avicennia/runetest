@@ -24,11 +24,12 @@ runetest.frame.indexer = function(tab) --Converts table strings into numerical v
     result = {}
     if(tab)then
     for k,v in ipairs(tab)do
-        if(string.find(v,"_") and string.sub(v,string.find(v,"_")+1))then
+        if(string.find(v, "glyph") and string.find(v,"_") and string.sub(v,string.find(v,"_")+1))then
         table.insert(result,tonumber(string.sub(v,string.find(v,"_")+1)))
         elseif(v == "air")then
             table.insert(result,0)
-        else 
+        elseif(string.find(v, "reagent") and string.find(v,"_") and string.sub(v,string.find(v,"_")+1))then
+        table.insert(result,tonumber(string.sub(v,string.find(v,"_")+1)+40))
         end
     end
     return result
@@ -105,16 +106,28 @@ end
 --BRINGING THE FAMILY TOGETHER FUNCTION
 runetest.frame.discriminate = function(orig,diam)
     local numb = 0
+    local tag = false;
     local snapshot = runetest.frame.snap(orig,diam)
     for n = 1, #runetest.templates.glyphs, 1 do
     local analysis = runetest.frame.anal(snapshot,n)
     if(analysis[1] == true)then
+        if(n <= 9)then
         runetest.frame.poof(orig,diam + 1)
 			minetest.sound_play({name = "sfx_bell", gain = 1.0, pitch = 1.0},{gain = 1.0, fade = 0.0, pitch = 1.0})
 			runetest.frame.place({x=orig.x,y=orig.y+1,z=orig.z},n)
-            minetest.chat_send_all("Recognized glyph pattern | "..n.. " | !!")
             numb = n;
-            else minetest.chat_send_all("nope") end
+            tag = "lemma"
+            minetest.chat_send_all("Recognized " .. tag .. " pattern | "..n.. " | !!")
+        elseif(n >= 10)then
+            runetest.frame.poof(orig,diam + 1)
+			minetest.sound_play({name = "sfx_bell", gain = 1.0, pitch = 1.0},{gain = 1.0, fade = 0.0, pitch = 1.0})
+			runetest.frame.place({x=orig.x,y=orig.y+1,z=orig.z},n + 9)
+            numb = n;
+            tag = "glyph"
+            minetest.chat_send_all("Recognized " .. tag .. " pattern | "..n.. " | !!")
+        else minetest.chat_send_all("no suitable glyph pattern was found!") 
+        end
+        end
     
     end
     return numb
@@ -138,13 +151,16 @@ runetest.frame.poof = function(pos,diam)
     for n = 1, #poofarea, 1 do
         runetest.glyph_activate1(poofarea[n])
         minetest.remove_node(poofarea[n])
-        --local name = minetest.get_node(poofarea[n]).name
-        --minetest.set_node(poofarea[n],{name = "runetest:glyph_"..string.sub(name,string.find(name,"_")+1).."active"})
+    end
+    local poofarea = minetest.find_nodes_in_area(pos,{x=pos.x+pdiam,y=pos.y,z=pos.z+pdiam},{"group:rt_reagent"})
+    for n = 1, #poofarea, 1 do
+        runetest.glyph_activate1(poofarea[n])
+        minetest.remove_node(poofarea[n])
     end
 end
 
 runetest.frame.place = function(pos,index)
-    if(runetest.templates.glyphs_info[index][4][1] == "place")then
+    if(runetest.templates.glyphs_info[index+9][4][1] == "place")then
         minetest.add_entity(pos, "runetest:ent_lemma_"..index)
     else end
 end

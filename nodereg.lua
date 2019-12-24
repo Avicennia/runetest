@@ -31,6 +31,41 @@ minetest.register_node("runetest:rune_detector_idle", {
 ---                     GLYPHS                      ---
 ---                                                 ---
 ---                                                 ---
+for n = 1, #runetest.lemmas, 1 do
+	minetest.register_node("runetest:lemma_"..n, {
+		tiles = {"lemma_" .. n .. ".png"},
+		drawtype = "nodebox",
+		paramtype = "light",
+		connects_to = {"group:rt_chalk"},
+		connect_sides = { "top", "bottom", "front", "left", "back", "right" },
+		node_box = {
+			type = "connected",
+			fixed = {
+				{-0.5, -0.5, -0.5, 0.5, -0.4925, 0.5},
+			},
+			connect_back = {-0.0625, -0.5, 0.0625, 0.0625, -0.48875, 0.5},
+			connect_right = {0.0625, -0.5, -0.0625, 0.5, -0.48875, 0.0625},
+			connect_left = {-0.5, -0.5, -0.0625, -0.0625, -0.48875, 0.0625},
+			connect_front = {-0.0625, -0.5, -0.5, 0.0625, -0.48875, -0.0625},
+		},
+		groups = {oddly_breakable_by_hand = 3, falling_node = 3},
+		on_construct = function(pos)
+			local timer = minetest.get_node_timer(pos)
+			timer:start(2)
+		end,
+		on_timer = function(pos)
+			runetest.glyph_active(pos)
+			local timer = minetest.get_node_timer(pos)
+			timer:start(2)
+		end,
+		on_punch = function(pos)
+			minetest.remove_node(pos)
+		end
+	})
+end
+
+
+
 minetest.register_node("runetest:glyph_28", {
 	tiles = {"glyphtex.png",},
 	groups = {oddly_breakable_by_hand = 3, falling_node = 3,rt_chalk = 1},
@@ -130,7 +165,8 @@ minetest.register_node("runetest:offering_sigil_vertex", {
 })
 
 --	--	--	--	--	--	--	Reagents	--	--	--	--	--	--	--
-minetest.register_node("runetest:reagent_humblesalt", {
+minetest.register_node("runetest:reagent_0", {
+	description = "Humble Salt",
 	tiles = {"tex_salt.png"},
 	drawtype = "nodebox",
 	paramtype = "light",
@@ -152,7 +188,7 @@ minetest.register_node("runetest:reagent_humblesalt", {
 	},
 	on_rightclick = function(pos)
 	end,
-	groups = {oddly_breakable_by_hand = 2}
+	groups = {oddly_breakable_by_hand = 2, rt_reagent = 1}
 })
 --	--	--	--	--	--	--	ALTARS
 minetest.register_node("runetest:dev", {
@@ -172,7 +208,7 @@ minetest.register_node("runetest:dev", {
 	},
 on_punch = function(pos)
 		--minetest.chat_send_all(minetest.serialize(runetest.frame.anal(runetest.frame.snap(pos,3),4)))
-		for n = 1, 4, 1 do
+		for n = 1, 5, 1 do
 		if(runetest.frame.discriminate(pos,n) >= 1)then
 		minetest.chat_send_all("Diameter of "..n.." worked!")
 		else end
@@ -209,5 +245,13 @@ minetest.register_node("runetest:table", {
     drawtype = "mesh", 
     tiles = {"canvas2.png"},
 	mesh = "table.b3d",
+	groups = {crumbly = 1,oddly_breakable_by_hand = 1}
+})
+minetest.register_node("runetest:tablet", {
+    drawtype = "mesh", 
+    tiles = {"canvas2.png"},
+	mesh = "stonetile.b3d",
+	walkable = false,
+	pointable = false,
 	groups = {crumbly = 1,oddly_breakable_by_hand = 1}
 })
