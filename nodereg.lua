@@ -135,6 +135,7 @@ minetest.register_node("runetest:glyph_28", {
 		connect_front = {-0.0625, -0.5, -0.5, 0.0625, -0.48875, -0.0625},
 	},
 	on_punch= function(pos)
+		minetest.chat_send_all(minetest.serialize(runetest.frame.synthase({28,28,28,28,40,28,28,0,28},3)))
 	minetest.remove_node(pos)
 end
 })

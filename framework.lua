@@ -50,6 +50,33 @@ runetest.frame.chylomicron = function(t1,t2) -- compares values within tables, a
     return result
 end
 
+-- TABLE CLEAVAGE FUNCTION
+runetest.frame.helicase = function(tab)
+    local genepool = {};
+    for n = 1, #tab, 1 do
+        for nn = 1, #tab[n], 1 do
+        table.insert(genepool, tab[n][nn])
+        end
+    end
+    return genepool
+end
+
+-- CLEAVED TABLE PACKAGING FUNCTION
+runetest.frame.synthase = function(tab, unitsof)
+    if(#tab == 9 or #tab == 25)then
+    local rna = {}
+    for n = 1, unitsof, 1 do
+        rna[n] = {}
+        for nn = 1, unitsof, 1 do
+            rna[n][nn] = tab[nn*n]
+        end
+    end
+    return rna
+else  end
+return rna
+end 
+        
+
 -- MAIN SEARCH FUNCTION
 runetest.frame.anal = function(tab,index) --Disassemble, compare, determine, line-by-line from given table.
 local data = {
@@ -96,7 +123,7 @@ if(assumptions.norm == true)then -- COnvoluted set of functions to test equality
 
 else end
 
-local rt = {assumptions.id, 4}
+local rt = {assumptions.id, data.outgoing.pattern}
 --minetest.chat_send_all(minetest.serialize(data.incoming.pattern).." | "..minetest.serialize(data.temp.pattern).." | "..minetest.serialize(data.outgoing.pattern))
 --minetest.chat_send_all(minetest.serialize(runetest.templates.glyphs[index]).." [|] "..runetest.templates.glyphs_info[index][1])
 return rt
