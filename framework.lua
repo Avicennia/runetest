@@ -75,7 +75,23 @@ runetest.frame.synthase = function(tab, unitsof)
 else  end
 return rna
 end 
-        
+
+-- TABLE REARRANGEMENT FUNCTION
+runetest.frame.mutase = function(tab, rot) --Rotates table values
+    local bpg = {}
+    if(tab and rot)then    
+        local order = {{1,3},{2,6},{3,9},{4,2},{5,5},{6,8},{8,4},{9,7},{7,1}}
+    if(#tab == 9 and rot == 90)then
+        for n = 1, #tab, 1 do
+            bpg[order[n][2]] = tab[order[n][1]]
+        end
+    else end
+else end
+return bpg
+end
+
+
+    
 
 -- MAIN SEARCH FUNCTION
 runetest.frame.anal = function(tab,index) --Disassemble, compare, determine, line-by-line from given table.

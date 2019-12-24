@@ -135,7 +135,11 @@ minetest.register_node("runetest:glyph_28", {
 		connect_front = {-0.0625, -0.5, -0.5, 0.0625, -0.48875, -0.0625},
 	},
 	on_punch= function(pos)
-		minetest.chat_send_all(minetest.serialize(runetest.frame.synthase({28,28,28,28,40,28,28,0,28},3)))
+		local lol = {{28,28,28},{28,0,28},{28,0,28}}
+		local l_o_l = runetest.frame.helicase(lol)
+		local oll = runetest.frame.mutase(l_o_l, 90)
+		local llo = runetest.frame.synthase(oll, 3)
+		minetest.chat_send_all(minetest.serialize(llo))
 	minetest.remove_node(pos)
 end
 })
