@@ -51,7 +51,7 @@ runetest.frame.chylomicron = function(t1,t2) -- compares values within tables, a
 end
 
 -- TABLE CLEAVAGE FUNCTION
-runetest.frame.helicase = function(tab)
+runetest.frame.helicase = function(tab) -- Unzips the given table into one table containing all values in sequential order.
     local genepool = {};
     for n = 1, #tab, 1 do
         for nn = 1, #tab[n], 1 do
@@ -62,7 +62,8 @@ runetest.frame.helicase = function(tab)
 end
 
 -- CLEAVED TABLE PACKAGING FUNCTION
-runetest.frame.synthase = function(tab, unitsof)
+runetest.frame.synthase = function(tab, unitsof) -- Synthesizes a new table with <unitsof> number of tables of <unitsof> length. table provided must be square.
+    
     if(#tab == 9 or #tab == 25)then
     local rna = {}
     for n = 1, unitsof, 1 do
@@ -77,7 +78,7 @@ return rna
 end 
 
 -- TABLE REARRANGEMENT FUNCTION
-runetest.frame.mutase = function(tab, rot) --Rotates table values
+runetest.frame.mutase = function(tab, rot) --Rotates table values based on degrees provided in <rot>. Currently only 90deg clockwise is supported
     local bpg = {}
     if(tab and rot)then    
         local order = {{1,3},{2,6},{3,9},{4,2},{5,5},{6,8},{8,4},{9,7},{7,1}}
@@ -155,7 +156,7 @@ runetest.frame.discriminate = function(orig,diam)
     local analysis = runetest.frame.anal(snapshot,n)
     if(analysis[1] == true)then
         if(n <= 9)then
-        runetest.frame.poof(orig,diam + 1)
+        runetest.frame.poof(orig,diam)
 			minetest.sound_play({name = "sfx_bell", gain = 1.0, pitch = 1.0},{gain = 1.0, fade = 0.0, pitch = 1.0})
 			runetest.frame.place({x=orig.x,y=orig.y+1,z=orig.z},n)
             numb = n;
@@ -188,8 +189,8 @@ end
 -------!!!!!!!!!
 
 
-runetest.frame.poof = function(pos,diam)
-    pdiam = diam-1;
+runetest.frame.poof = function(pos,diam) -- Performs a simple particle effect for completed recipes.
+    pdiam = diam;
     local poofarea = minetest.find_nodes_in_area(pos,{x=pos.x+pdiam,y=pos.y,z=pos.z+pdiam},{"group:rt_chalk"})
     for n = 1, #poofarea, 1 do
         runetest.glyph_activate1(poofarea[n])
@@ -205,7 +206,13 @@ end
 runetest.frame.place = function(pos,index)
     if(runetest.templates.glyphs_info[index][1] <= 3)then
     if(runetest.templates.glyphs_info[index][4][1] == "place")then
-        minetest.add_entity(pos, "runetest:ent_lemma_"..index)
+            local tafel = minetest.find_node_near(pos, 4, {"runetest:tafel"},false)
+            local offset = minetest.get_objects_inside_radius(pos, 20)
+            offset = 0 and #offset;
+            tafel.y = tafel.y + 1;
+            pos = pos and tafel;
+            minetest.chat_send_all(minetest.serialize(tafel))
+        minetest.add_entity({x = pos.x, y = pos.y, z = pos.z + offset/10}, "runetest:ent_lemma_"..index)
     else end
 elseif(runetest.templates.glyphs_info[index][1] >= 4)then
     if(runetest.templates.glyphs_info[index][4][1] == "place")then

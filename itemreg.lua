@@ -27,6 +27,7 @@ minetest.register_tool("runetest:pen_1",{
         },
     })
     minetest.register_tool("runetest:wand_1",{
+
         description = "Calcite Wand",
         groups = {inscription = 2}, 
         inventory_image = "wand_1.png",
@@ -38,12 +39,33 @@ minetest.register_tool("runetest:pen_1",{
             full_punch_interval = 1.0,
             max_drop_level = 0,
         },
+
+
         node_placement_prediction = nil,
 
         sound = {
             breaks = "default_tool_break", -- tools only
             place = "default_tool_break",
         },
+
+
+        on_use = function(itemstack, user, pointed_thing)
+            if(pointed_thing.above)then
+                local pos = pointed_thing.above
+                local pos_scan = {x=pos.x - 2,y=pos.y,z=pos.z - 2}
+                minetest.chat_send_all(minetest.serialize(runetest.frame.anal(runetest.frame.snap(pos_scan,3),4)))
+                for n = 1, 5, 1 do
+                    if(runetest.frame.discriminate(pos_scan,n) >= 1)then
+                    minetest.chat_send_all("Diameter of "..n.." worked!")
+                    else end
+                end
+            else end
+        end,
+
+
+        on_secondary_use = function(itemstack, user, pointed_thing)
+            minetest.chat_send_all(minetest.serialize(pointed_thing))
+        end
     })
     minetest.register_tool("runetest:wand_2",{
         description = "Vaterite Wand",

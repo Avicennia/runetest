@@ -71,6 +71,31 @@ for n = 10, #runetest.templates.glyphs, 1 do
     runetest.templates.glyphs_info[n] = {#runetest.templates.glyphs[n],"Inscription for Glyph_"..n,{propns},{"place", n}}
 end
 
+--[[
+    In-field Rune Use
+    
+    CURRENT CONSIDERATIONS:
+        Base template for a rune; Table containing several components, planned to be reducible to indexable integers
+        wherever possible, which call various fields from a centralized library table.
+
+       1) position, destination -- Arguments that may be table values for actual map positions, names of players, or predefined positional values (eg. nearestplayer, nearestnode, nearestent)
+       
+       2) action -- Argument containing one of several possible predefined integral fields of an action table, defines which functions are called in execution of the rune's action.
+          (eg. a "placenode" action may use the code [4], in which case the rune places nodes) This may come with additional modifiers per action (eg. if the placenode code of 4 is selected, there may be other numbers to add to indicate direction or shape)
+            should return values that give any checkup/cleanup functions the necessary information to do their work.
+       
+       3) info -- table containing casting player's name, any other players involved and perhaps how, positions involved if necessary. For auxillary use.
+
+example:
+                runetest.runes.barrier = function(pos,des,act,info)
+                    
+                end
+
+
+
+       ]]
+
+
 --  --  --  --  --  --  --  --  --  --  --  --  --  --
 
 minetest.register_abm({

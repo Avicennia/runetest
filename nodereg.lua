@@ -134,14 +134,9 @@ minetest.register_node("runetest:glyph_28", {
 		connect_left = {-0.5, -0.5, -0.0625, -0.0625, -0.48875, 0.0625},
 		connect_front = {-0.0625, -0.5, -0.5, 0.0625, -0.48875, -0.0625},
 	},
-	on_punch= function(pos)
-		local lol = {{28,28,28},{28,0,28},{28,0,28}}
-		local l_o_l = runetest.frame.helicase(lol)
-		local oll = runetest.frame.mutase(l_o_l, 90)
-		local llo = runetest.frame.synthase(oll, 3)
-		minetest.chat_send_all(minetest.serialize(llo))
-	minetest.remove_node(pos)
-end
+    on_punch = function(pos)
+        minetest.remove_node(pos)
+    end
 })
 --	--	--	--	--	Offering Sigils
 minetest.register_node("runetest:offering_sigil_corner", {
@@ -201,6 +196,7 @@ minetest.register_node("runetest:dev", {
 	tiles = {"me_obelisk_panel_port.png"},
 	drawtype = "nodebox",
 	paramtype = "light",
+    groups = {crumbly = 1},
 	node_box = {
 		type = "fixed",
 		fixed = {
@@ -213,13 +209,16 @@ minetest.register_node("runetest:dev", {
 		}
 	},
 on_punch = function(pos)
-		--minetest.chat_send_all(minetest.serialize(runetest.frame.anal(runetest.frame.snap(pos,3),4)))
+		minetest.chat_send_all(minetest.serialize(runetest.frame.anal(runetest.frame.snap(pos,3),4)))
 		for n = 1, 5, 1 do
 		if(runetest.frame.discriminate(pos,n) >= 1)then
 		minetest.chat_send_all("Diameter of "..n.." worked!")
 		else end
 	end
 end,
+on_rightclick = function(pos)
+            minetest.remove_node(pos)
+end
 })
 minetest.register_node("runetest:ash", {
 	description = "Inert Ash",
@@ -247,9 +246,10 @@ minetest.register_node("runetest:rest_occupied", {
 	mesh = "stylusrestocc.b3d",
 	groups = {crumbly = 1,oddly_breakable_by_hand = 1}
 })
-minetest.register_node("runetest:table", {
+minetest.register_node("runetest:tafel", {
     drawtype = "mesh", 
     tiles = {"canvas2.png"},
+    paramtype2 = "facedir",
 	mesh = "table.b3d",
 	groups = {crumbly = 1,oddly_breakable_by_hand = 1}
 })
