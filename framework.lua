@@ -1,7 +1,7 @@
 
 
 
--- CENSUS OFFICER FUNCTION
+-- AREA RETRIEVAL FUNCTION
 runetest.frame.snap = function(orig,diam)   --Given parameters, will retrieve all nodes within a given radius.
     local db = {}
     --Grabs nodenames in a line outward including center for diam number of nodes.
@@ -12,7 +12,7 @@ runetest.frame.snap = function(orig,diam)   --Given parameters, will retrieve al
         end
         return db
     end
---Does this for as many times as diam, in this case, making a shape w/ l and w the same.
+-- Does this for as many times as diam, in this case, making a shape w/ l and w the same.
 for n = 1, diam, 1 do   
     db[n] = linegrab({x=orig.x,y=orig.y,z=orig.z+n})
 end
@@ -24,12 +24,18 @@ runetest.frame.indexer = function(tab) --Converts table strings into numerical v
     result = {}
     if(tab)then
     for k,v in ipairs(tab)do
+
         if(string.find(v, "glyph") and string.find(v,"_") and string.sub(v,string.find(v,"_")+1))then
+
         table.insert(result,tonumber(string.sub(v,string.find(v,"_")+1)))
+
         elseif(v == "air")then
+
             table.insert(result,0)
+
         elseif(string.find(v, "reagent") and string.find(v,"_") and string.sub(v,string.find(v,"_")+1))then
-        table.insert(result,tonumber(string.sub(v,string.find(v,"_")+1)+40))
+        
+            table.insert(result,tonumber(string.sub(v,string.find(v,"_")+1)+40))
         end
     end
     return result
@@ -39,14 +45,21 @@ end
 -- VERIFIER FUNCTION
 runetest.frame.chylomicron = function(t1,t2) -- compares values within tables, and if equal, assigns true. (used per table within the larger pattern table)
     local result = 0
+
     for n = 1, #t1, 1 do
+
         if(t1[n] == t2[n])then
+
             result = result + 1;
+
         else end
     end
     if(result == #t1)then
+
         result = true
+
     else end
+
     return result
 end
 
@@ -54,8 +67,11 @@ end
 runetest.frame.helicase = function(tab) -- Unzips the given table into one table containing all values in sequential order.
     local genepool = {};
     for n = 1, #tab, 1 do
+
         for nn = 1, #tab[n], 1 do
+
         table.insert(genepool, tab[n][nn])
+
         end
     end
     return genepool
@@ -65,15 +81,17 @@ end
 runetest.frame.synthase = function(tab, unitsof) -- Synthesizes a new table with <unitsof> number of tables of <unitsof> length. table provided must be square.
     
     if(#tab == 9 or #tab == 25)then
-    local rna = {}
-    for n = 1, unitsof, 1 do
-        rna[n] = {}
-        for nn = 1, unitsof, 1 do
-            rna[n][nn] = tab[nn*n]
+
+        local rna = {}
+
+        for n = 1, unitsof, 1 do
+            rna[n] = {}
+            for nn = 1, unitsof, 1 do
+                rna[n][nn] = tab[nn*n]
+            end
         end
-    end
     return rna
-else  end
+    else  end
 return rna
 end 
 
@@ -147,7 +165,8 @@ return rt
 
 end
 
---BRINGING THE FAMILY TOGETHER FUNCTION
+-- BRINGING THE FAMILY TOGETHER FUNCTION
+-- function utilizes multiple previously defined functions for a given pos. (tag variable is used to indicate which outcome occurred)
 runetest.frame.discriminate = function(orig,diam)
     local numb = 0
     local tag = false;
@@ -163,7 +182,7 @@ runetest.frame.discriminate = function(orig,diam)
             tag = "lemma"
             minetest.chat_send_all("Recognized " .. tag .. " pattern | "..n.. " | !!")
         elseif(n >= 10)then
-            runetest.frame.poof(orig,diam + 1)
+            runetest.frame.poof(orig,diam)
 			minetest.sound_play({name = "sfx_bell", gain = 1.0, pitch = 1.0},{gain = 1.0, fade = 0.0, pitch = 1.0})
 			runetest.frame.place({x=orig.x,y=orig.y+1,z=orig.z},n)
             numb = n;
@@ -174,7 +193,7 @@ runetest.frame.discriminate = function(orig,diam)
         end
     
     end
-    return numb
+    return numb -- numb is the index of the glyph that is used, if any.
 end
 
 

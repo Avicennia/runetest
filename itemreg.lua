@@ -22,7 +22,7 @@ minetest.register_tool("runetest:pen_1",{
         node_placement_prediction = nil,
 
         sound = {
-            breaks = "default_tool_break", -- tools only
+            breaks = "default_tool_break",
             place = "default_tool_break",
         },
     })
@@ -44,7 +44,7 @@ minetest.register_tool("runetest:pen_1",{
         node_placement_prediction = nil,
 
         sound = {
-            breaks = "default_tool_break", -- tools only
+            breaks = "default_tool_break",
             place = "default_tool_break",
         },
 
@@ -53,10 +53,9 @@ minetest.register_tool("runetest:pen_1",{
             if(pointed_thing.above)then
                 local pos = pointed_thing.above
                 local pos_scan = {x=pos.x - 2,y=pos.y,z=pos.z - 2}
-                minetest.chat_send_all(minetest.serialize(runetest.frame.anal(runetest.frame.snap(pos_scan,3),4)))
-                for n = 1, 5, 1 do
-                    if(runetest.frame.discriminate(pos_scan,n) >= 1)then
-                    minetest.chat_send_all("Diameter of "..n.." worked!")
+                for k,v in pairs(runetest.sizes) do
+                    if(runetest.frame.discriminate(pos_scan,v) >= 1)then
+                    minetest.chat_send_all("Diameter of "..v.." worked!")
                     else end
                 end
             else end
@@ -85,4 +84,20 @@ minetest.register_tool("runetest:pen_1",{
             breaks = "default_tool_break", -- tools only
             place = "default_tool_break",
         },
+        on_use = function(itemstack, user, pointed_thing)
+            if(pointed_thing.above)then
+                local pos = pointed_thing.above
+                local pos_scan = {x=pos.x - 2,y=pos.y,z=pos.z - 2}
+                for k,v in pairs(runetest.sizes) do
+                    if(runetest.frame.discriminate(pos_scan,v) >= 1)then
+                    minetest.chat_send_all("Diameter of "..v.." worked!")
+                    else end
+                end
+            else end
+        end,
+
+
+        on_secondary_use = function(itemstack, user, pointed_thing)
+            minetest.chat_send_all(minetest.serialize(pointed_thing))
+        end
     })
