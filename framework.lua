@@ -159,12 +159,17 @@ local assumptions = {eq = false, norm = false, id = false}
     else end
 
    if(assumptions.eq == true and data.incoming.size[2] == data.temp.size[2])then -- Size Test
+
       assumptions.norm = true;
+
    else end
 
     if(assumptions.eq == true and assumptions.norm == true)then --Digitize table
+
         for n = 1, #tab, 1 do
+
         table.insert(data.outgoing.pattern,runetest.frame.indexer(data.incoming.pattern[n]))
+
     end
     else end
 if(assumptions.norm == true)then -- COnvoluted set of functions to test equality of variables in tables.
@@ -200,17 +205,12 @@ runetest.frame.discriminate = function(orig,diam)
     for n = 1, #runetest.templates.glyphs, 1 do
     local analysis = runetest.frame.anal(snapshot,n)
     if(analysis[1] == true)then
-        if(n <= 9)then
-        runetest.frame.poof(orig,diam)
-			minetest.sound_play({name = "sfx_bell", gain = 1.0, pitch = 1.0},{gain = 1.0, fade = 0.0, pitch = 1.0})
-			runetest.frame.place({x=orig.x,y=orig.y+1,z=orig.z},n)
+        if(n ~= 0 and n <= 9)then
             numb = n;
             tag = "lemma"
+            minetest.chat_send_all("numb is "..numb)
             minetest.chat_send_all("Recognized " .. tag .. " pattern | "..n.. " | !!")
         elseif(n >= 10)then
-            runetest.frame.poof(orig,diam)
-			minetest.sound_play({name = "sfx_bell", gain = 1.0, pitch = 1.0},{gain = 1.0, fade = 0.0, pitch = 1.0})
-			runetest.frame.place({x=orig.x,y=orig.y+1,z=orig.z},n)
             numb = n;
             tag = "glyph"
             minetest.chat_send_all("Recognized " .. tag .. " pattern | "..n.. " | !!")
@@ -234,14 +234,14 @@ end
 -------!!!!!!!!!
 
 
-runetest.frame.poof = function(pos,diam) -- Performs a simple particle effect for completed recipes.
-    pdiam = diam;
-    local poofarea = minetest.find_nodes_in_area(pos,{x=pos.x+pdiam,y=pos.y,z=pos.z+pdiam},{"group:rt_chalk"})
+runetest.frame.poof = function(pos,pdiam) -- Performs a simple particle effect for completed recipes.
+    
+    local poofarea = minetest.find_nodes_in_area({x=pos.x-pdiam,y=pos.y,z=pos.z-pdiam},{x=pos.x+pdiam,y=pos.y,z=pos.z+pdiam},{"group:rt_chalk"})
     for n = 1, #poofarea, 1 do
         runetest.glyph_activate1(poofarea[n])
         minetest.remove_node(poofarea[n])
     end
-    local poofarea = minetest.find_nodes_in_area(pos,{x=pos.x+pdiam,y=pos.y,z=pos.z+pdiam},{"group:rt_reagent"})
+    local poofarea = minetest.find_nodes_in_area({x=pos.x-pdiam,y=pos.y,z=pos.z-pdiam},{x=pos.x+pdiam,y=pos.y,z=pos.z+pdiam},{"group:rt_reagent"})
     for n = 1, #poofarea, 1 do
         runetest.glyph_activate1(poofarea[n])
         minetest.remove_node(poofarea[n])
@@ -249,20 +249,20 @@ runetest.frame.poof = function(pos,diam) -- Performs a simple particle effect fo
 end
 
 runetest.frame.place = function(pos,index)
-    if(runetest.templates.glyphs_info[index][1] <= 3)then
+    if(runetest.templates.glyphs_info[index][1] == 3)then
     if(runetest.templates.glyphs_info[index][4][1] == "place")then
-            local tafel = minetest.find_node_near(pos, 4, {"runetest:tafel"},false)
-            local offset = minetest.get_objects_inside_radius(pos, 20)
+            local tafel = minetest.find_node_near(pos, 2, {"runetest:tafel"},false)
+            local offset = minetest.get_objects_inside_radius(pos, 3)
             offset = 0 and #offset;
             tafel.y = tafel.y + 1;
             pos = pos and tafel;
             minetest.chat_send_all(minetest.serialize(tafel))
         minetest.add_entity({x = pos.x, y = pos.y, z = pos.z + offset/10}, "runetest:ent_lemma_"..index)
     else end
-elseif(runetest.templates.glyphs_info[index][1] >= 4)then
+elseif(runetest.templates.glyphs_info[index][1] == 5)then
     if(runetest.templates.glyphs_info[index][4][1] == "place")then
-        local tafel = minetest.find_node_near(pos, 4, {"runetest:tafel"},false)
-            local offset = minetest.get_objects_inside_radius(pos, 20)
+        local tafel = minetest.find_node_near(pos, 3, {"runetest:tafel"},false)
+            local offset = minetest.get_objects_inside_radius(pos, 3)
             offset = 0 and #offset;
             tafel.y = tafel.y + 1;
             pos = pos and tafel;

@@ -57,16 +57,20 @@ minetest.register_tool("runetest:pen_1",{
 
 
         on_use = function(itemstack, user, pointed_thing)
+            local wandran = 3
             if(pointed_thing.above)then
                 local pos = pointed_thing.above
                 local pos_scan = {x=pos.x - 2,y=pos.y,z=pos.z - 2}
-                for k,v in pairs(runetest.sizes) do
-                    if(runetest.frame.discriminate(pos_scan,v) >= 1)then
-                    minetest.chat_send_all("Diameter of "..v.." worked!")
+                
+                    if(pos_scan)then
+                    runetest.frame.place(pos,runetest.frame.discriminate(pos_scan,wandran))
+                    minetest.sound_play({name = "sfx_bell", gain = 1.0, pitch = 1.0},{gain = 1.0, fade = 0.0, pitch = 1.0})
+                    runetest.frame.poof(pos,1)
                     else end
-                end
-            else end
-            minetest.chat_send_all(minetest.serialize(user:get_player_control().sneak))
+                
+                else end
+            
+            --minetest.chat_send_all(minetest.serialize(user:get_player_control().sneak))
         end,
 
 
@@ -93,14 +97,17 @@ minetest.register_tool("runetest:pen_1",{
             place = "default_tool_break",
         },
         on_use = function(itemstack, user, pointed_thing)
+            local wandran = 5
             if(pointed_thing.above)then
                 local pos = pointed_thing.above
                 local pos_scan = {x=pos.x - 3,y=pos.y,z=pos.z - 3}
-                for k,v in pairs(runetest.sizes) do
-                    if(runetest.frame.discriminate(pos_scan,v) >= 1)then
-                    minetest.chat_send_all("Diameter of "..v.." worked!")
+
+                if(pos_scan)then
+                    runetest.frame.place(pos,runetest.frame.discriminate(pos_scan,wandran))
+                    minetest.sound_play({name = "sfx_bell", gain = 1.0, pitch = 1.0},{gain = 1.0, fade = 0.0, pitch = 1.0})
+                    runetest.frame.poof(pos,2)
+
                     else end
-                end
             else end
         end,
 
