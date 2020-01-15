@@ -251,7 +251,16 @@ minetest.register_node("runetest:tafel", {
     tiles = {"canvas2.png"},
     paramtype2 = "facedir",
 	mesh = "table.b3d",
-	groups = {crumbly = 1,oddly_breakable_by_hand = 1}
+	groups = {crumbly = 1,oddly_breakable_by_hand = 1},
+	on_punch = function(pos)
+		local objs =  99 and minetest.get_objects_inside_radius(pos, 2)
+		if(type(objs) == "table")then
+			for n = 1, #objs, 1 do
+			objs[n] = objs[n]:get_entity_name()
+			end
+		end
+		minetest.chat_send_all(dump(runetest.tafel.lemscan(pos)))
+	end
 })
 minetest.register_node("runetest:tablet", {
     drawtype = "mesh", 
@@ -259,5 +268,9 @@ minetest.register_node("runetest:tablet", {
 	mesh = "stonetile.b3d",
 	walkable = false,
 	pointable = false,
+	groups = {crumbly = 1,oddly_breakable_by_hand = 1}
+})
+minetest.register_node("runetest:tile", {
+    tiles = {"sapro.png"},
 	groups = {crumbly = 1,oddly_breakable_by_hand = 1}
 })

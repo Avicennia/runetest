@@ -25,6 +25,13 @@ minetest.register_tool("runetest:pen_1",{
             breaks = "default_tool_break",
             place = "default_tool_break",
         },
+        on_use = function(itemstack, user, pointed_thing)
+            if(pointed_thing.above)then
+            minetest.set_node(pointed_thing.above, {name = "runetest:glyph_28"})
+            else end
+        end,
+        on_secondary_use = function()
+        end
     })
     minetest.register_tool("runetest:wand_1",{
 
@@ -59,6 +66,7 @@ minetest.register_tool("runetest:pen_1",{
                     else end
                 end
             else end
+            minetest.chat_send_all(minetest.serialize(user:get_player_control().sneak))
         end,
 
 
@@ -87,7 +95,7 @@ minetest.register_tool("runetest:pen_1",{
         on_use = function(itemstack, user, pointed_thing)
             if(pointed_thing.above)then
                 local pos = pointed_thing.above
-                local pos_scan = {x=pos.x - 2,y=pos.y,z=pos.z - 2}
+                local pos_scan = {x=pos.x - 3,y=pos.y,z=pos.z - 3}
                 for k,v in pairs(runetest.sizes) do
                     if(runetest.frame.discriminate(pos_scan,v) >= 1)then
                     minetest.chat_send_all("Diameter of "..v.." worked!")

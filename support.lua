@@ -22,7 +22,7 @@ runetest.templates = {
     --Lemma 8
     {{28,0,0},{0,28,0},{0,0,28}},
     --Lemma 9
-    {{0,28,28,28,28},{28,28,28,28,28},{28,28,28,28,28},{28,28,28,28,28},{28,28,28,28,28}},
+    {{0,28,0},{28,28,28},{0,28,0}},
     --Glyph 1
     {{28,28,28,28,28},{28,28,28,28,28},{28,28,28,28,28},{28,28,28,28,28},{28,28,28,28,28}},
     --Glyph 2
@@ -112,7 +112,7 @@ minetest.register_abm({
         end
     end
 })
- lolosia = 1
+
 
 --  --  --  ENTITIES    --  --  --
 --  --  --              --  --  --
@@ -123,9 +123,9 @@ local stonetab = {
         hp_max = 1,
         physical = true,
         collide_with_objects = false,
-        collisionbox = {-0.3, -0.3, -0.3, 0.3, 0.3, 0.3},
+        collisionbox = {-0.1, -0.1, -0.1, 0.1, 0.1, 0.1},
         visual = "sprite",
-        visual_size = {x = 0.4, y = 0.4},
+        visual_size = {x = 0.2, y = 0.2},
         textures = {"glyph_"..n..".png"},
         spritediv = {x = 1, y = 1},
         initial_sprite_basepos = {x = 0, y = 0},
@@ -139,41 +139,7 @@ local stonetab = {
         else end
     end,
     on_step = function(self)
-        local pos = self.object:get_pos()
-        local table = minetest.find_node_near(pos, 5, "runetest:table", true)
-        if(table)then
-            runetest.ticker_ticker = runetest.ticker_ticker + 0.1
-            if(runetest.ticker_ticker >= 6)then
-                runetest.ticker_ticker = 1
-            else end
-            local positions = {{x=table.x,y=table.y+1,z=table.z+0.3},{x=table.x,y=table.y+1.4,z=table.z+0.6},{x=table.x,y=table.y+1.8,z=table.z+0.3},{x=table.x,y=table.y+1.8,z=table.z-0.3},{x=table.x,y=table.y+1.4,z=table.z-0.6},{x=table.x,y=table.y+1,z=table.z+0.3}}
-            if(runetest.ticker_ticker == 1)then
-            self.object:move_to(positions[runetest.ticker_ticker])
-            elseif(runetest.ticker_ticker == 2)then
-            self.object:move_to(positions[runetest.ticker_ticker])
-            elseif(runetest.ticker_ticker == 3)then
-            self.object:move_to(positions[runetest.ticker_ticker])
-            elseif(runetest.ticker_ticker == 4)then
-            self.object:move_to(positions[runetest.ticker_ticker])
-            elseif(runetest.ticker_ticker == 5)then
-            self.object:move_to(positions[runetest.ticker_ticker])
-            elseif(runetest.ticker_ticker == 6)then
-            self.object:move_to(positions[runetest.ticker_ticker])
-            else end
-            minetest.chat_send_all(runetest.ticker_ticker)
-            --[[
-            runetest.ticker_ticker = runetest.ticker_ticker + 0.2
-            if(runetest.ticker_ticker < 100)then
-            self.object:move_to({x=table.x,y=table.y+1+runetest.ticker_ticker/100,z=table.z-runetest.ticker_ticker/100})
-            elseif(runetest.ticker_ticker >= 100 and runetest.ticker_ticker < 200) then
-            self.object:move_to({x=table.x,y=table.y+1+runetest.ticker_ticker/100,z=table.z-1+runetest.ticker_ticker/100})
-            elseif(runetest.ticker_ticker > 200 and runetest.ticker_ticker < 300)then
-            self.object:move_to({x=table.x,y=table.y-1+runetest.ticker_ticker/100,z=table.z-1+runetest.ticker_ticker/100})
-            elseif(runetest.ticker_ticker > 300 and runetest.ticker_ticker < 400)then
-            self.object:move_to({x=table.x,y=table.y-1+runetest.ticker_ticker/100,z=table.z-1+runetest.ticker_ticker/100})
-
-            end]]
-        else end
+        
     end
 }
 
@@ -184,9 +150,9 @@ local stonetab = {
         hp_max = 1,
         physical = true,
         collide_with_objects = false,
-        collisionbox = {-0.3, -0.3, -0.3, 0.3, 0.3, 0.3},
+        collisionbox = {-0.1, -0.1, -0.1, 0.1, 0.1, 0.1},
         visual = "sprite",
-        visual_size = {x = 0.4, y = 0.4},
+        visual_size = {x = 0.2, y = 0.2},
         textures = {"glyph_"..n.. ".png^[mask:palette_stone_obsidian.png"},
         spritediv = {x = 1, y = 1},
         initial_sprite_basepos = {x = 0, y = 0},
@@ -204,9 +170,9 @@ local stonetab = {
         hp_max = 1,
         physical = true,
         collide_with_objects = false,
-        collisionbox = {-0.3, -0.3, -0.3, 0.3, 0.3, 0.3},
+        collisionbox = {-0.1, -0.1, -0.1, 0.1, 0.1, 0.1},
         visual = "sprite",
-        visual_size = {x = 0.4, y = 0.4},
+        visual_size = {x = 0.2, y = 0.2},
         textures = {"lemma_"..n..".png"},
         spritediv = {x = 1, y = 1},
         initial_sprite_basepos = {x = 0, y = 0},

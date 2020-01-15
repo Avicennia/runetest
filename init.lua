@@ -11,6 +11,8 @@ runetest = {
     lex_alt = {"runetest:glyph_n",99,"air",98,},
     lex = {},
     particle = {},
+    util = {},
+    tafel = {},
     ticker_ticker = 1 -- Universal variable intended to be used for counts
 }
 

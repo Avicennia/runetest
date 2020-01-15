@@ -19,6 +19,29 @@ end
     return db
 end
 
+-- DUPLICATE REMOVAL FUNCTION (TABLE)
+function runetest.util.dupe(tab)
+    local tab = {1,2,3,8,5,6,1,3,5,4,3,8,1,4,4,5,8,2,3,1,2,5,6,8,2,1,1,1,1,1,1,1,1,1,1}
+    local keys = {};
+    local rv = {};
+    for _,v in pairs(tab) do
+        table.insert(keys, v)
+        for n = 1, #tab, 1 do
+        if(keys[#keys] == tab[n])then
+        tab[n] = 0
+        else end
+        end
+    end
+    for n = 1, #keys, 1 do
+        if(keys[n] ~= 0)then
+           table.insert(rv,keys[n])
+        else end
+    end
+    
+    return rv
+end
+
+
 -- NAME-NUM INDEXER FUNCTION
 runetest.frame.indexer = function(tab) --Converts table strings into numerical values. (used for internal tables here)
     result = {}
@@ -36,6 +59,8 @@ runetest.frame.indexer = function(tab) --Converts table strings into numerical v
         elseif(string.find(v, "reagent") and string.find(v,"_") and string.sub(v,string.find(v,"_")+1))then
         
             table.insert(result,tonumber(string.sub(v,string.find(v,"_")+1)+40))
+        elseif(v == "runetest:korbel")then
+            table.insert(result, 65)
         end
     end
     return result
@@ -128,19 +153,20 @@ local data = {
 local assumptions = {eq = false, norm = false, id = false}
 
 
-if(data.incoming.size[1] == data.temp.size[1])then --Count Test
-    assumptions.eq = true;
-else end
+    if(data.incoming.size[1] == data.temp.size[1])then --Count Test
+        assumptions.eq = true;
+        data.outgoing.size = data.temp.size[1] * data.temp.size[2]; -- sets variable to an absolute size for exporting
+    else end
 
-if(assumptions.eq == true and data.incoming.size[2] == data.temp.size[2])then
-    assumptions.norm = true;
-else end
+   if(assumptions.eq == true and data.incoming.size[2] == data.temp.size[2])then -- Size Test
+      assumptions.norm = true;
+   else end
 
-if(assumptions.eq == true and assumptions.norm == true)then --DIgitize table
-    for n = 1, #tab, 1 do
-    table.insert(data.outgoing.pattern,runetest.frame.indexer(data.incoming.pattern[n]))
-end
-else end
+    if(assumptions.eq == true and assumptions.norm == true)then --Digitize table
+        for n = 1, #tab, 1 do
+        table.insert(data.outgoing.pattern,runetest.frame.indexer(data.incoming.pattern[n]))
+    end
+    else end
 if(assumptions.norm == true)then -- COnvoluted set of functions to test equality of variables in tables.
     local result = {}
     local chk = 0
@@ -158,7 +184,7 @@ if(assumptions.norm == true)then -- COnvoluted set of functions to test equality
 
 else end
 
-local rt = {assumptions.id, data.outgoing.pattern}
+local rt = {assumptions.id, data.outgoing.pattern,data.outgoing.size}
 --minetest.chat_send_all(minetest.serialize(data.incoming.pattern).." | "..minetest.serialize(data.temp.pattern).." | "..minetest.serialize(data.outgoing.pattern))
 --minetest.chat_send_all(minetest.serialize(runetest.templates.glyphs[index]).." [|] "..runetest.templates.glyphs_info[index][1])
 return rt
@@ -235,6 +261,12 @@ runetest.frame.place = function(pos,index)
     else end
 elseif(runetest.templates.glyphs_info[index][1] >= 4)then
     if(runetest.templates.glyphs_info[index][4][1] == "place")then
+        local tafel = minetest.find_node_near(pos, 4, {"runetest:tafel"},false)
+            local offset = minetest.get_objects_inside_radius(pos, 20)
+            offset = 0 and #offset;
+            tafel.y = tafel.y + 1;
+            pos = pos and tafel;
+            minetest.chat_send_all(minetest.serialize(tafel))
         minetest.add_entity(pos, "runetest:ent_glyph_"..index-9)
     else end
 end
@@ -242,3 +274,16 @@ end
 
 
 
+runetest.tafel.lemscan = function(pos)
+    space = {x = pos.x, y = pos.y + 1, z = pos.z}
+    local data = {name = minetest.get_node(pos).name,
+    objects = minetest.get_objects_inside_radius(space,1),
+    se_objects = {};
+    };
+    if(type(data.objects) == "table" and #data.objects > 0)then
+        for k,v in pairs(data.objects)do
+            data.se_objects[k] = v:get_entity_name()
+        end
+    end
+    return data.se_objects
+end
