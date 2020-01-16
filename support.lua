@@ -98,20 +98,7 @@ example:
 
 --  --  --  --  --  --  --  --  --  --  --  --  --  --
 
-minetest.register_abm({
-    nodenames = {"runetest:rune_detector_idle"},
-    neighbors = {},
-    interval = 2.0,
-    chance = 1,
-    action = function(pos)
-        --minetest.chat_send_all(minetest.serialize(minetest.find_node_near(pos,64,"group:rt_chalk",false)))
-        local dest = minetest.find_node_near(pos,64,"group:rt_chalk",false)
-        if(dest)then
-        runetest.particle.detline(pos,dest)
-        else
-        end
-    end
-})
+
 
 
 --  --  --  ENTITIES    --  --  --
@@ -176,15 +163,39 @@ local stonetab = {
         textures = {"lemma_"..n..".png"},
         spritediv = {x = 1, y = 1},
         initial_sprite_basepos = {x = 0, y = 0},
+        
     },
-    on_activate = function(self)
+    on_step = function(self)
         local pos = self.object:get_pos()
-        local table = minetest.find_node_near(pos, 2, "runetest:table", false)
-        if(table)then
-            local neighborhood = minetest.get_objects_inside_radius({x=table.x,y=table.y+1,z=table.z},1.5)
-            self.object:move_to({x=table.x,y=table.y+1,z=table.z-1+#neighborhood/3})
-        else end
-    end
+        runetest.particle.scrib(pos)
+        end
 }
     minetest.register_entity("runetest:ent_lemma_"..n, stonetab)
 end
+
+local crys = {
+    initial_properties = {
+        hp_max = 0,
+        physical = true,
+        collide_with_objects = false,
+        collisionbox = {-0.1, -0.1, -0.1, 0.1, 0.1, 0.1},
+        visual = "mesh",
+        mesh = "crystal.b3d",
+        visual_size = {x = 8, y = 8},
+        textures = {"canvas2.png"},
+        spritediv = {x = 1, y = 1},
+        initial_sprite_basepos = {x = 0, y = 0},
+        
+    },
+    on_step = function(self)
+        local n = 0.1
+        local pos = self.object:get_yaw()
+        if(pos >= 360)then
+            self.object:set_yaw(0)
+        else end
+        
+        self.object:set_yaw(pos+n)
+        
+    end
+}
+minetest.register_entity("runetest:ent_crys", crys)

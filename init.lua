@@ -13,6 +13,7 @@ runetest = {
     particle = {},
     util = {},
     tafel = {},
+    ent_jitter = {{x=0.07,y=0,z=0.07},{x=-0.07,y=0,z=-0.07}},
     ticker_ticker = 1 -- Universal variable intended to be used for counts
 }
 

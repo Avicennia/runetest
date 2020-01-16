@@ -274,3 +274,13 @@ minetest.register_node("runetest:tile", {
     tiles = {"sapro.png"},
 	groups = {crumbly = 1,oddly_breakable_by_hand = 1}
 })
+minetest.register_node("runetest:crystal", {
+    drawtype = "mesh", 
+    tiles = {"canvas2.png"},
+    paramtype2 = "facedir",
+	mesh = "crystal.b3d",
+	groups = {crumbly = 1,oddly_breakable_by_hand = 1},
+	on_punch = function(pos)
+		minetest.add_entity({x=pos.x, y=pos.y + 2, z = pos.z}, "runetest:ent_crys")
+	end
+})

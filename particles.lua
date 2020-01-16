@@ -179,3 +179,28 @@ runetest.particle.detline = function(pos, des)
         glow = 2
     })
 end
+
+runetest.particle.scrib = function(pos)
+    minetest.add_particlespawner({
+        amount = 2,
+        time = 1,
+
+        minpos = {x=pos.x-0.05, y=pos.y-0.1, z=pos.z-0.05},
+        maxpos = {x=pos.x+0.05, y=pos.y-0.1, z=pos.z+0.05},
+        minvel = {x=0, y=0.08, z=0},
+        maxvel = {x=0, y=0.1, z=0},
+        minacc = {x=0, y=0, z=0},
+        maxacc = {x=0, y=0, z=0},
+        minexptime = 1,
+        maxexptime = 2,
+        minsize = 0.05,
+        maxsize = 0.1,
+
+        collisiondetection = false,
+        collision_removal = false,
+        attached = ObjectRef,
+        vertical = true,
+        texture = "tex_salt.png",
+        glow = 2
+    })
+    end
