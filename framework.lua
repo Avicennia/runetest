@@ -2,7 +2,7 @@
 
 
 -- AREA RETRIEVAL FUNCTION
-runetest.frame.snap = function(orig,diam)   --Given parameters, will retrieve all nodes within a given radius.
+runetest.core.frame.snap = function(orig,diam)   --Given parameters, will retrieve all nodes within a given radius.
     local db = {}
     --Grabs nodenames in a line outward including center for diam number of nodes.
     local function linegrab(orig) 
@@ -43,7 +43,7 @@ end
 
 
 -- NAME-NUM INDEXER FUNCTION
-runetest.frame.indexer = function(tab) --Converts table strings into numerical values. (used for internal tables here)
+runetest.core.frame.indexer = function(tab) --Converts table strings into numerical values. (used for internal tables here)
     result = {}
     if(tab)then
     for k,v in ipairs(tab)do
@@ -68,7 +68,7 @@ else end
 end
 
 -- VERIFIER FUNCTION
-runetest.frame.chylomicron = function(t1,t2) -- compares values within tables, and if equal, assigns true. (used per table within the larger pattern table)
+runetest.core.frame.chylomicron = function(t1,t2) -- compares values within tables, and if equal, assigns true. (used per table within the larger pattern table)
     local result = 0
 
     for n = 1, #t1, 1 do
@@ -89,7 +89,7 @@ runetest.frame.chylomicron = function(t1,t2) -- compares values within tables, a
 end
 
 -- TABLE CLEAVAGE FUNCTION
-runetest.frame.helicase = function(tab) -- Unzips the given table into one table containing all values in sequential order.
+runetest.core.frame.helicase = function(tab) -- Unzips the given table into one table containing all values in sequential order.
     local genepool = {};
     for n = 1, #tab, 1 do
 
@@ -103,7 +103,7 @@ runetest.frame.helicase = function(tab) -- Unzips the given table into one table
 end
 
 -- CLEAVED TABLE PACKAGING FUNCTION
-runetest.frame.synthase = function(tab, unitsof) -- Synthesizes a new table with <unitsof> number of tables of <unitsof> length. table provided must be square.
+runetest.core.frame.synthase = function(tab, unitsof) -- Synthesizes a new table with <unitsof> number of tables of <unitsof> length. table provided must be square.
     
     if(#tab == 9 or #tab == 25)then
 
@@ -121,7 +121,7 @@ return rna
 end 
 
 -- TABLE REARRANGEMENT FUNCTION
-runetest.frame.mutase = function(tab, rot) --Rotates table values based on degrees provided in <rot>. Currently only 90deg clockwise is supported
+runetest.core.frame.mutase = function(tab, rot) --Rotates table values based on degrees provided in <rot>. Currently only 90deg clockwise is supported
     local bpg = {}
     if(tab and rot)then    
         local order = {{1,3},{2,6},{3,9},{4,2},{5,5},{6,8},{8,4},{9,7},{7,1}}
@@ -138,7 +138,7 @@ end
     
 
 -- MAIN SEARCH FUNCTION
-runetest.frame.anal = function(tab,index) --Disassemble, compare, determine, line-by-line from given table.
+runetest.core.frame.anal = function(tab,index) --Disassemble, compare, determine, line-by-line from given table.
 local data = {
     incoming = {name = "unknown",
                 pattern = tab,
@@ -168,7 +168,7 @@ local assumptions = {eq = false, norm = false, id = false}
 
         for n = 1, #tab, 1 do
 
-        table.insert(data.outgoing.pattern,runetest.frame.indexer(data.incoming.pattern[n]))
+        table.insert(data.outgoing.pattern,runetest.core.frame.indexer(data.incoming.pattern[n]))
 
     end
     else end
@@ -176,7 +176,7 @@ if(assumptions.norm == true)then -- COnvoluted set of functions to test equality
     local result = {}
     local chk = 0
     for x = 1, data.incoming.size[1] do -- for each table in each, check if numbers are same
-    result[x] = runetest.frame.chylomicron(data.temp.pattern[x],runetest.frame.indexer(data.incoming.pattern[x])) 
+    result[x] = runetest.core.frame.chylomicron(data.temp.pattern[x],runetest.core.frame.indexer(data.incoming.pattern[x])) 
     end
     for n = 1, #result, 1 do -- If they are both equal, then all tables within tables will have true
         if(result[n] == true)then
@@ -198,12 +198,12 @@ end
 
 -- BRINGING THE FAMILY TOGETHER FUNCTION
 -- function utilizes multiple previously defined functions for a given pos. (tag variable is used to indicate which outcome occurred)
-runetest.frame.discriminate = function(orig,diam)
+runetest.core.frame.discriminate = function(orig,diam)
     local numb = 0
     local tag = false;
-    local snapshot = runetest.frame.snap(orig,diam)
+    local snapshot = runetest.core.frame.snap(orig,diam)
     for n = 1, runetest.templates.glyphs, 1 do
-    local analysis = runetest.frame.anal(snapshot,n)
+    local analysis = runetest.core.frame.anal(snapshot,n)
     if(analysis[1] == true)then
         if(n ~= 0 and n <= 9)then
             numb = n;
@@ -224,17 +224,13 @@ end
 
 
 
-
-
-
-
 -------!!!!!!!!!
-runetest.frame.cast = function()
+runetest.core.frame.cast = function()
 end
 -------!!!!!!!!!
 
 
-runetest.frame.poof = function(pos,pdiam) -- Performs a simple particle effect for completed recipes.
+runetest.core.frame.poof = function(pos,pdiam) -- Performs a simple particle effect for completed recipes.
     
     local poofarea = minetest.find_nodes_in_area({x=pos.x-pdiam,y=pos.y,z=pos.z-pdiam},{x=pos.x+pdiam,y=pos.y,z=pos.z+pdiam},{"group:rt_chalk"})
     for n = 1, #poofarea, 1 do
@@ -248,7 +244,7 @@ runetest.frame.poof = function(pos,pdiam) -- Performs a simple particle effect f
     end
 end
 
-runetest.frame.place = function(pos,index)
+runetest.core.frame.place = function(pos,index)
     if(runetest.templates.glyphs_info[index][1] == 3)then
     if(runetest.templates.glyphs_info[index][4][1] == "place")then
         local tafel = minetest.find_node_near(pos, 2, {"runetest:tafel"},false)
@@ -287,7 +283,7 @@ end
 
 
 
-runetest.tafel.lemscan = function(pos)
+runetest.core.tafel.lemscan = function(pos)
     space = {x = pos.x, y = pos.y + 1, z = pos.z}
     local data = {name = minetest.get_node(pos).name,
     objects = minetest.get_objects_inside_radius(space,1),
@@ -305,7 +301,7 @@ runetest.tafel.lemscan = function(pos)
 end
 
 
-runetest.tafel.bubblebubbletoilandtrouble = function(arr) -- Definitely not a pirate argument (It means array, as in the passed array of numbers or the sequence)
+runetest.core.tafel.bubblebubbletoilandtrouble = function(arr) -- Definitely not a pirate argument (It means array, as in the passed array of numbers or the sequence)
     if(arr.num == runetest.templates.recipes[1])then
         for k,v in pairs(arr.refs)do
             v:remove()

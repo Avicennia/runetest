@@ -63,9 +63,9 @@ minetest.register_tool("runetest:pen_1",{
                 local pos_scan = {x=pos.x - 2,y=pos.y,z=pos.z - 2}
                 
                     if(pos_scan)then
-                    runetest.frame.place(pos,runetest.frame.discriminate(pos_scan,wandran))
+                    runetest.core.frame.place(pos,runetest.core.frame.discriminate(pos_scan,wandran))
                     minetest.sound_play({name = "sfx_bell", gain = 1.0, pitch = 1.0},{gain = 1.0, fade = 0.0, pitch = 1.0})
-                    runetest.frame.poof(pos,1)
+                    runetest.core.frame.poof(pos,1)
                     else end
                 
                 else end
@@ -103,9 +103,9 @@ minetest.register_tool("runetest:pen_1",{
                 local pos_scan = {x=pos.x - 3,y=pos.y,z=pos.z - 3}
 
                 if(pos_scan)then
-                    runetest.frame.place(pos,runetest.frame.discriminate(pos_scan,wandran))
+                    runetest.core.frame.place(pos,runetest.core.frame.discriminate(pos_scan,wandran))
                     minetest.sound_play({name = "sfx_bell", gain = 1.0, pitch = 1.0},{gain = 1.0, fade = 0.0, pitch = 1.0})
-                    runetest.frame.poof(pos,2)
+                    runetest.core.frame.poof(pos,2)
 
                     else end
             else end

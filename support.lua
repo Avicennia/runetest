@@ -111,7 +111,7 @@ example:
 --  --  --  ENTITIES    --  --  --
 --  --  --              --  --  --
 --  --  --              --  --  --
-for n = 1, runetest.glyphs, 1 do
+for n = 1, runetest.insc.glyphs, 1 do
 local stonetab = {
     initial_properties = {
         hp_max = 1,

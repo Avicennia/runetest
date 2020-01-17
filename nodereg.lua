@@ -31,7 +31,7 @@ minetest.register_node("runetest:rune_detector_idle", {
 ---                     GLYPHS                      ---
 ---                                                 ---
 ---                                                 ---
-for n = 1, runetest.lemmas, 1 do
+for n = 1, runetest.insc.lemmas, 1 do
 	minetest.register_node("runetest:lemma_"..n, {
 		tiles = {"lemma_" .. n .. ".png"},
 		drawtype = "nodebox",
@@ -71,8 +71,11 @@ end
 
 --	--	--	Various Glyphs	--	--	--
 for n = 1, runetest.glyphs, 1 do
-
+if(n ~= 28)then
 minetest.register_node("runetest:glyph_"..n.."active", {
+
+	-- Active runes, to be used immediately after cast time and in a few other special cases.
+
 	tiles = {"glyph_" .. n .. ".png".."^[mask:palette_stone_obsidian.png",},
 	drawtype = "nodebox",
 	paramtype = "light",
@@ -88,6 +91,7 @@ minetest.register_node("runetest:glyph_"..n.."active", {
 		connect_left = {-0.5, -0.5, -0.0625, -0.0625, -0.48875, 0.0625},
 		connect_front = {-0.0625, -0.5, -0.5, 0.0625, -0.48875, -0.0625},
 	},
+
 	groups = {oddly_breakable_by_hand = 3, falling_node = 3},
 
 	on_construct = function(pos)
@@ -112,6 +116,7 @@ minetest.register_node("runetest:glyph_"..n.."active", {
 	end
 })
 minetest.register_node("runetest:glyph_"..n, {
+		-- Normal glyphs to be used in a more general purpose sense.
 	tiles = {"glyph_" .. n .. ".png",},
 	drawtype = "nodebox",
 	paramtype = "light",
@@ -127,6 +132,7 @@ minetest.register_node("runetest:glyph_"..n, {
 		minetest.remove_node(pos)
 	end
 })
+else end
 end
 minetest.register_node("runetest:glyph_28", {
 	tiles = {"glyphtex.png",},
@@ -255,7 +261,7 @@ minetest.register_node("runetest:tafel", {
 	groups = {crumbly = 1,oddly_breakable_by_hand = 1},
 	on_punch = function(pos)
 		
-		runetest.tafel.bubblebubbletoilandtrouble(runetest.tafel.lemscan(pos))
+		runetest.core.tafel.bubblebubbletoilandtrouble(runetest.core.tafel.lemscan(pos))
 	end
 })
 minetest.register_node("runetest:tablet", {
