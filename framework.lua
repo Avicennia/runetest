@@ -202,7 +202,7 @@ runetest.frame.discriminate = function(orig,diam)
     local numb = 0
     local tag = false;
     local snapshot = runetest.frame.snap(orig,diam)
-    for n = 1, #runetest.templates.glyphs, 1 do
+    for n = 1, runetest.templates.glyphs, 1 do
     local analysis = runetest.frame.anal(snapshot,n)
     if(analysis[1] == true)then
         if(n ~= 0 and n <= 9)then

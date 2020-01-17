@@ -31,7 +31,7 @@ minetest.register_node("runetest:rune_detector_idle", {
 ---                     GLYPHS                      ---
 ---                                                 ---
 ---                                                 ---
-for n = 1, #runetest.lemmas, 1 do
+for n = 1, runetest.lemmas, 1 do
 	minetest.register_node("runetest:lemma_"..n, {
 		tiles = {"lemma_" .. n .. ".png"},
 		drawtype = "nodebox",
@@ -70,7 +70,8 @@ end
 
 
 --	--	--	Various Glyphs	--	--	--
-for n = 1, #runetest.glyphs-1, 1 do
+for n = 1, runetest.glyphs, 1 do
+
 minetest.register_node("runetest:glyph_"..n.."active", {
 	tiles = {"glyph_" .. n .. ".png".."^[mask:palette_stone_obsidian.png",},
 	drawtype = "nodebox",
@@ -88,17 +89,26 @@ minetest.register_node("runetest:glyph_"..n.."active", {
 		connect_front = {-0.0625, -0.5, -0.5, 0.0625, -0.48875, -0.0625},
 	},
 	groups = {oddly_breakable_by_hand = 3, falling_node = 3},
+
 	on_construct = function(pos)
+
 		local timer = minetest.get_node_timer(pos)
 		timer:start(2)
+
 	end,
+
 	on_timer = function(pos)
+
 		runetest.glyph_active(pos)
 		local timer = minetest.get_node_timer(pos)
 		timer:start(2)
+
 	end,
+
 	on_punch = function(pos)
+
 		minetest.remove_node(pos)
+
 	end
 })
 minetest.register_node("runetest:glyph_"..n, {
@@ -112,6 +122,7 @@ minetest.register_node("runetest:glyph_"..n, {
 		}
 	},
 	groups = {oddly_breakable_by_hand = 3, falling_node = 3, rt_chalk = 1},
+
 	on_punch = function(pos)
 		minetest.remove_node(pos)
 	end
@@ -134,7 +145,8 @@ minetest.register_node("runetest:glyph_28", {
 		connect_left = {-0.5, -0.5, -0.0625, -0.0625, -0.48875, 0.0625},
 		connect_front = {-0.0625, -0.5, -0.5, 0.0625, -0.48875, -0.0625},
 	},
-    on_punch = function(pos)
+	on_punch = function(pos)
+		
         minetest.remove_node(pos)
     end
 })
@@ -208,17 +220,6 @@ minetest.register_node("runetest:dev", {
 			{-0.375, -0.5, -0.375, 0.375, -0.375, 0.375},
 		}
 	},
-on_punch = function(pos)
-		minetest.chat_send_all(minetest.serialize(runetest.frame.anal(runetest.frame.snap(pos,3),4)))
-		for n = 1, 5, 1 do
-		if(runetest.frame.discriminate(pos,n) >= 1)then
-		minetest.chat_send_all("Diameter of "..n.." worked!")
-		else end
-	end
-end,
-on_rightclick = function(pos)
-            minetest.remove_node(pos)
-end
 })
 minetest.register_node("runetest:ash", {
 	description = "Inert Ash",
