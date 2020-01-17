@@ -61,7 +61,14 @@ runetest.templates = {
     {{},{},{}}
     },
     glyphs_info = {},
-    alternatives = {}
+    alternatives = {},
+    recipes = {
+        "6179538",
+        {},
+        {},
+        {},
+        {},
+    }
 
 }
 for n = 1, (#runetest.templates.glyphs-(#runetest.templates.glyphs-9)), 1 do
@@ -180,15 +187,15 @@ local crys = {
         collide_with_objects = false,
         collisionbox = {-0.1, -0.1, -0.1, 0.1, 0.1, 0.1},
         visual = "mesh",
-        mesh = "crystal.b3d",
-        visual_size = {x = 8, y = 8},
-        textures = {"canvas2.png"},
+        mesh = "warrcrystal.b3d",
+        visual_size = {x = 12, y = 12},
+        textures = {"sapro.png"},
         spritediv = {x = 1, y = 1},
         initial_sprite_basepos = {x = 0, y = 0},
         
     },
     on_step = function(self)
-        local n = 0.1
+        local n = 0.01
         local pos = self.object:get_yaw()
         if(pos >= 360)then
             self.object:set_yaw(0)

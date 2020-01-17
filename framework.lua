@@ -291,12 +291,24 @@ runetest.tafel.lemscan = function(pos)
     space = {x = pos.x, y = pos.y + 1, z = pos.z}
     local data = {name = minetest.get_node(pos).name,
     objects = minetest.get_objects_inside_radius(space,1),
-    se_objects = {};
+    se_objects = {num = "", refs = {}}
     };
     if(type(data.objects) == "table" and #data.objects > 0)then
-        for k,v in pairs(data.objects)do
-            data.se_objects[k] = v:get_entity_name()
+        for k,v in ipairs(data.objects)do
+            local nom = v:get_entity_name()
+            data.se_objects.num = data.se_objects.num .. string.sub(nom,string.find(nom,"a_")+2)
+            data.se_objects.refs[k] = v
+
         end
     end
     return data.se_objects
+end
+
+
+runetest.tafel.bubblebubbletoilandtrouble = function(arr) -- Definitely not a pirate argument (It means array, as in the passed array of numbers or the sequence)
+    if(arr.num == runetest.templates.recipes[1])then
+        for k,v in pairs(arr.refs)do
+            v:remove()
+        end
+    else minetest.chat_send_all(arr.num .. " |||||| " .. runetest.templates.recipes[1]) end
 end

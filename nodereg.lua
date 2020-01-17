@@ -253,13 +253,8 @@ minetest.register_node("runetest:tafel", {
 	mesh = "table.b3d",
 	groups = {crumbly = 1,oddly_breakable_by_hand = 1},
 	on_punch = function(pos)
-		local objs =  99 and minetest.get_objects_inside_radius(pos, 2)
-		if(type(objs) == "table")then
-			for n = 1, #objs, 1 do
-			objs[n] = objs[n]:get_entity_name()
-			end
-		end
-		minetest.chat_send_all(dump(runetest.tafel.lemscan(pos)))
+		
+		runetest.tafel.bubblebubbletoilandtrouble(runetest.tafel.lemscan(pos))
 	end
 })
 minetest.register_node("runetest:tablet", {

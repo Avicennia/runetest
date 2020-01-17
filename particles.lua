@@ -182,7 +182,7 @@ end
 
 runetest.particle.scrib = function(pos)
     minetest.add_particlespawner({
-        amount = 2,
+        amount = 1,
         time = 1,
 
         minpos = {x=pos.x-0.05, y=pos.y-0.1, z=pos.z-0.05},
