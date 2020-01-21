@@ -6,7 +6,7 @@ runetest = {
     sizes = {3,5}, -- Sizes of selection areas used in the mod.
     particle = {},
     util = {ent_jitter = {{x=0.07,y=0,z=0.07},{x=-0.07,y=0,z=-0.07}},ticker_ticker = 1},
-    core = {frame = {},tafel = {},res = {}, cast = {}},
+    core = {frame = {},tafel = {},res = {}, cast = {}, will = { states = {0,1,2}}},
 }
 
 

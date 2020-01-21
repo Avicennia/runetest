@@ -70,7 +70,7 @@ end
 
 
 --	--	--	Various Glyphs	--	--	--
-for n = 1, runetest.glyphs, 1 do
+for n = 1, runetest.insc.glyphs, 1 do
 if(n ~= 28)then
 minetest.register_node("runetest:glyph_"..n.."active", {
 
@@ -226,6 +226,10 @@ minetest.register_node("runetest:dev", {
 			{-0.375, -0.5, -0.375, 0.375, -0.375, 0.375},
 		}
 	},
+	on_punch = function(pos, node, puncher)
+		runetest.core.will.change(puncher)
+		minetest.chat_send_all(minetest.serialize(puncher:get_nametag_attributes()))
+	end
 })
 minetest.register_node("runetest:ash", {
 	description = "Inert Ash",

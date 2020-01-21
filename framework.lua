@@ -308,3 +308,16 @@ runetest.core.tafel.bubblebubbletoilandtrouble = function(arr) -- Definitely not
         end
     else minetest.chat_send_all(arr.num .. " |||||| " .. runetest.templates.recipes[1]) end
 end
+
+
+--  --  --  --  WILL -- --  --  --  
+runetest.core.will.change = function(user)
+    local tatt = user:get_nametag_attributes();
+    local ext = tonumber(tatt.text) or 0;
+    if(ext >= 2)then
+        ext = 0;
+    else ext = ext + 1;
+    end
+    tatt.text = tostring(ext)
+    user:set_nametag_attributes(tatt)
+end
