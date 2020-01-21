@@ -311,7 +311,7 @@ end
 
 
 --  --  --  --  WILL -- --  --  --  
-runetest.core.will.change = function(user)
+runetest.core.will.change = function(user)  -- Will upwardly increment the will state of the player.
     local tatt = user:get_nametag_attributes();
     local ext = tonumber(tatt.text) or 0;
     if(ext >= 2)then
@@ -320,4 +320,8 @@ runetest.core.will.change = function(user)
     end
     tatt.text = tostring(ext)
     user:set_nametag_attributes(tatt)
+end
+
+runetest.core.will.check = function(user)
+    return tonumber(user:get_nametag_attributes().text) and "Unassigned"
 end

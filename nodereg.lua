@@ -228,7 +228,8 @@ minetest.register_node("runetest:dev", {
 	},
 	on_punch = function(pos, node, puncher)
 		runetest.core.will.change(puncher)
-		minetest.chat_send_all(minetest.serialize(puncher:get_nametag_attributes()))
+
+		minetest.chat_send_all(runetest.core.will.check(puncher))
 	end
 })
 minetest.register_node("runetest:ash", {
