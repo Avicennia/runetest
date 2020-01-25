@@ -202,7 +202,7 @@ runetest.core.frame.discriminate = function(orig,diam)
     local numb = 0
     local tag = false;
     local snapshot = runetest.core.frame.snap(orig,diam)
-    for n = 1, runetest.templates.glyphs, 1 do
+    for n = 1, #runetest.templates.glyphs, 1 do
     local analysis = runetest.core.frame.anal(snapshot,n)
     if(analysis[1] == true)then
         if(n ~= 0 and n <= 9)then
@@ -245,40 +245,37 @@ runetest.core.frame.poof = function(pos,pdiam) -- Performs a simple particle eff
 end
 
 runetest.core.frame.place = function(pos,index)
-    if(runetest.templates.glyphs_info[index][1] == 3)then
-    if(runetest.templates.glyphs_info[index][4][1] == "place")then
-        local tafel = minetest.find_node_near(pos, 2, {"runetest:tafel"},false)
+    if(index > 0)then
+        if(runetest.templates.glyphs_info[index][1] == 3)then
+            if(runetest.templates.glyphs_info[index][4][1] == "place")then
+                local tafel = minetest.find_node_near(pos, 2, {"runetest:tafel"},false)
 
-        if(tafel)then
-            tafel.y = tafel.y + 1;
-            local chambers = {[0] = {x = 0, y = 0.25 , z = 0},
-                                {z = -0.25, y = 0, x = 0},
-                                {z = -0.45, y = 0.25 , x = 0},
-                                {z = -0.25 , y = 0.50 , x = 0},
-                                {z = 0.25, y = 0.50, x = 0},
-                                {z = 0.45, y = 0.25, x = 0},
-                                {z = 0.25, y = 0.0 , x = 0},}
-        local offset = minetest.get_objects_inside_radius(tafel, 2)
+                if(tafel)then
+                    tafel.y = tafel.y + 1;
+                    local chambers = runetest.core.tafel.chambers
+                    local offset = minetest.get_objects_inside_radius(tafel, 2)
 
-            if(offset and #offset > 0)then
-            offset = #offset;
-            minetest.add_entity(vector.add(tafel,chambers[offset]), "runetest:ent_lemma_"..index)
-            elseif(offset == nil or #offset == 0)then
-                minetest.add_entity(vector.add(tafel,chambers[0]), "runetest:ent_lemma_"..index)
-            else minetest.chat_send_all(#offset) end
+                    if(offset and #offset > 0)then
+                        offset = #offset;
+                        minetest.add_entity(vector.add(tafel,chambers[offset]), "runetest:ent_lemma_"..index)
+                    elseif(offset == nil or #offset == 0)then
+                        minetest.add_entity(vector.add(tafel,chambers[0]), "runetest:ent_lemma_"..index)
+                    else minetest.chat_send_all(#offset) 
+                    end
+                else end
+            else end
+        elseif(runetest.templates.glyphs_info[index][1] == 5)then
+            if(runetest.templates.glyphs_info[index][4][1] == "place")then
+                local tafel = minetest.find_node_near(pos, 3, {"runetest:tafel"},false)
+                local offset = minetest.get_objects_inside_radius(pos, 3)
+                offset = 0 and #offset;
+                tafel.y = tafel.y + 1;
+                pos = pos and tafel;
+                minetest.chat_send_all(minetest.serialize(tafel))
+                minetest.add_entity(pos, "runetest:ent_glyph_"..index-9)
+            else end
         else end
     else end
-elseif(runetest.templates.glyphs_info[index][1] == 5)then
-    if(runetest.templates.glyphs_info[index][4][1] == "place")then
-        local tafel = minetest.find_node_near(pos, 3, {"runetest:tafel"},false)
-            local offset = minetest.get_objects_inside_radius(pos, 3)
-            offset = 0 and #offset;
-            tafel.y = tafel.y + 1;
-            pos = pos and tafel;
-            minetest.chat_send_all(minetest.serialize(tafel))
-        minetest.add_entity(pos, "runetest:ent_glyph_"..index-9)
-    else end
-end
 end
 
 
@@ -332,7 +329,7 @@ end
 runetest.core.will.rectify = function(user)
 end
 
-runetest.core.will.append = function(user, value, loc) -- Inserts value at location within the runetest cache playerstring for user.
+runetest.core.will.alter = function(user, value, loc) -- Inserts value at location within the runetest cache playerstring for user.
     local ustring = runetest.cache.users[user:get_player_name()]
     local s1,s2,s3 = "undefined";
     if(type(value) == "number")then

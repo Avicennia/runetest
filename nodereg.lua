@@ -231,7 +231,7 @@ minetest.register_node("runetest:dev", {
 		--runetest.core.will.endp(puncher)
 		runetest.core.will.register(puncher)
 		--minetest.chat_send_all(minetest.serialize(runetest.cache.users))
-		minetest.chat_send_all(runetest.core.will.append(puncher, "T",7))
+		minetest.chat_send_all(runetest.core.will.alter(puncher, "T",7))
 	end
 })
 minetest.register_node("runetest:ash", {

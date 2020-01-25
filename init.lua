@@ -13,7 +13,8 @@ runetest = {
 
     core = {
         frame = {}, -- Core functions pertaining to the recognition, preparation and execution of glyphs and runes.
-        tafel = {}, -- Core functions pertaining to the usage of the tafel.
+        tafel = { chambers = {[0] = {x = 0, y = 0.25 , z = 0},{z = -0.25, y = 0, x = 0},{z = -0.45, y = 0.25 , x = 0},
+                            {z = -0.25 , y = 0.50 , x = 0},{z = 0.25, y = 0.50, x = 0},{z = 0.45, y = 0.25, x = 0},{z = 0.25, y = 0.0 , x = 0},}}, -- Core functions pertaining to the usage of the tafel.
         res = {}, -- Core functions pertaining to the resonance feature.
         cast = {},  -- Core functions pertaining to the casting of runes, and their related execution calls.
         will = { states = {0,1,2}} -- Core functions pertaining to the WILL system.
