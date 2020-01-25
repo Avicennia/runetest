@@ -227,9 +227,11 @@ minetest.register_node("runetest:dev", {
 		}
 	},
 	on_punch = function(pos, node, puncher)
-		runetest.core.will.change(puncher)
-
-		minetest.chat_send_all(runetest.core.will.check(puncher))
+		--runetest.core.will.change(puncher)
+		--runetest.core.will.endp(puncher)
+		runetest.core.will.register(puncher)
+		--minetest.chat_send_all(minetest.serialize(runetest.cache.users))
+		minetest.chat_send_all(runetest.core.will.append(puncher, "T",7))
 	end
 })
 minetest.register_node("runetest:ash", {

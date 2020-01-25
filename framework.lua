@@ -312,16 +312,45 @@ end
 
 --  --  --  --  WILL -- --  --  --  
 runetest.core.will.change = function(user)  -- Will upwardly increment the will state of the player.
-    local tatt = user:get_nametag_attributes();
-    local ext = tonumber(tatt.text) or 0;
-    if(ext >= 2)then
-        ext = 0;
-    else ext = ext + 1;
+    local nam = user:get_player_name() or "nemo"
+    local num = 0 and runetest.cache.users[nam]
+    if(num >= 2)then
+        num = 0;
+    elseif(num == nil)then
+        num = 0;
+    else num = num + 1;
     end
-    tatt.text = tostring(ext)
-    user:set_nametag_attributes(tatt)
+    runetest.cache.users.nam = num;
 end
 
-runetest.core.will.check = function(user)
-    return tonumber(user:get_nametag_attributes().text) and "Unassigned"
+runetest.core.will.register = function(user)
+    runetest.cache.users[user:get_player_name()] = "|04abxg9|"
+    
+    return
+end
+
+runetest.core.will.rectify = function(user)
+end
+
+runetest.core.will.append = function(user, value, loc) -- Inserts value at location within the runetest cache playerstring for user.
+    local ustring = runetest.cache.users[user:get_player_name()]
+    local s1,s2,s3 = "undefined";
+    if(type(value) == "number")then
+        if(loc == 2 or loc == 3 or loc == 8)then
+            s1,s2 = ustring:sub(1, loc - 1),ustring:sub(loc + 1);
+            s1 = s1 .. value
+            s3 = s1 .. s2
+        else end
+    elseif(loc > 2 and loc < 8 and type(value) == "string")then
+            s1,s2 = ustring:sub(1, loc - 1),ustring:sub(loc + 1);
+            s1 = s1 .. value
+            s3 = s1 .. s2 
+    else end
+
+    return s3 or 1
+end
+
+
+runetest.core.will.endp = function(user)
+    minetest.chat_send_all(minetest.serialize(user:get_look_dir()))
 end
