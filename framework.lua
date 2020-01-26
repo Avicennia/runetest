@@ -209,19 +209,19 @@ runetest.core.frame.discriminate = function(orig,diam)
         analysis = runetest.core.frame.anal(snapshot,n)
         minetest.chat_send_all(minetest.serialize(analysis))
         if(analysis[1] == true)then
-            analysis = analysis[2] break -- Sloppy fix, remember to change
+            analysis = analysis[2]
+            numb = n break -- Sloppy fix, remember to change
         else analysis = nil
     end
     if(analysis)then
-        if(n ~= 0 and n <= 9)then
-            numb = n;
+        minetest.chat_send_all(n)
+        if(numb ~= 0 and numb <= 9)then
             tag = "lemma"
             minetest.chat_send_all("numb is "..numb)
-            minetest.chat_send_all("Recognized " .. tag .. " pattern | "..n.. " | !!")
+            minetest.chat_send_all("Recognized " .. tag .. " pattern | "..numb.. " | !!")
         elseif(n >= 10)then
-            numb = n;
             tag = "glyph"
-            minetest.chat_send_all("Recognized " .. tag .. " pattern | "..n.. " | !!")
+            minetest.chat_send_all("Recognized " .. tag .. " pattern | "..numb.. " | !!")
         else minetest.chat_send_all("no suitable glyph pattern was found!") 
         end
         end
@@ -271,8 +271,10 @@ runetest.core.frame.place = function(pos,index)
                     minetest.chat_send_all(#offset)
                     if(offset and #offset > 0 and #offset < 8)then
                         offset = #offset;
+                        
                         minetest.add_entity(vector.add(tafel,chambers[offset]), "runetest:ent_lemma_"..index)
                     elseif(offset == nil or #offset == 0)then
+                       
                         minetest.add_entity(vector.add(tafel,chambers[0]), "runetest:ent_lemma_"..index)
                     else 
                     end
@@ -281,17 +283,32 @@ runetest.core.frame.place = function(pos,index)
         elseif(runetest.templates.glyphs_info[index][1] == 5)then
             if(runetest.templates.glyphs_info[index][4][1] == "place")then
                 local tafel = minetest.find_node_near(pos, 3, {"runetest:tafel"},false)
-                local offset = minetest.get_objects_inside_radius(pos, 3)
-                offset = 0 and #offset;
-                tafel.y = tafel.y + 1;
-                pos = pos and tafel;
-                minetest.chat_send_all(minetest.serialize(tafel))
-                minetest.add_entity(pos, "runetest:ent_glyph_"..index-9)
-            else end
-        else end
-    else end
-end
 
+                if(tafel)then
+                    local par2 = minetest.get_node(tafel).param2
+                    tafel.y = tafel.y + 1;
+                    local chambers = runetest.core.tafel.chambers
+                    
+                    if(par2 == 0 or par2 == 2)then
+                       chambers = runetest.core.tafel.chambers_alt
+                    else 
+                    end
+                    local offset = minetest.get_objects_inside_radius(tafel, 2)
+                    minetest.chat_send_all(#offset)
+                    if(offset and #offset > 0 and #offset < 8)then
+                        offset = #offset;
+                        
+                        minetest.add_entity(vector.add(tafel,chambers[offset]), "runetest:ent_glyph_"..index)
+                    elseif(offset == nil or #offset == 0)then
+                       
+                        minetest.add_entity(vector.add(tafel,chambers[0]), "runetest:ent_glyph_"..index)
+                    else 
+                    end
+                else end
+            else end
+    else minetest.chat_send_all(index.."!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")end
+end
+end
 
 
 runetest.core.tafel.lemscan = function(pos)

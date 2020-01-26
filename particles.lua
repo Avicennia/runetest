@@ -72,14 +72,14 @@ runetest.glyph_active = function(pos)
         maxacc = {x=0, y=0, z=0},
         minexptime = 1,
         maxexptime = 1,
-        minsize = 0.3,
-        maxsize = 0.7,
+        minsize = 0.1,
+        maxsize = 0.3,
 
         collisiondetection = false,
         collision_removal = false,
         attached = ObjectRef,
         vertical = true,
-        texture = "twinkleflame.png",
+        texture = "twinkle.png",
         glow = 2
     })
     end

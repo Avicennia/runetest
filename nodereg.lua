@@ -126,7 +126,7 @@ minetest.register_node("runetest:glyph_"..n, {
 			{-0.5, -0.5, -0.5, 0.5, -0.4925, 0.5},
 		}
 	},
-	groups = {oddly_breakable_by_hand = 3, falling_node = 3, rt_chalk = 1},
+	groups = {oddly_breakable_by_hand = 3, falling_node = 1, rt_chalk = 1},
 
 	on_punch = function(pos)
 		minetest.remove_node(pos)
@@ -136,7 +136,7 @@ else end
 end
 minetest.register_node("runetest:glyph_28", {
 	tiles = {"glyphtex.png",},
-	groups = {oddly_breakable_by_hand = 3, falling_node = 3,rt_chalk = 1},
+	groups = {oddly_breakable_by_hand = 3, falling_node = 1,rt_chalk = 1},
 	drawtype = "nodebox",
 	paramtype = "light",
 	connects_to = {"group:rt_chalk"},
