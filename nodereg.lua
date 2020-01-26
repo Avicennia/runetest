@@ -48,7 +48,7 @@ for n = 1, runetest.insc.lemmas, 1 do
 			connect_left = {-0.5, -0.5, -0.0625, -0.0625, -0.48875, 0.0625},
 			connect_front = {-0.0625, -0.5, -0.5, 0.0625, -0.48875, -0.0625},
 		},
-		groups = {oddly_breakable_by_hand = 3, falling_node = 3},
+		groups = {oddly_breakable_by_hand = 3, falling_node = 3, rt_lemma = 1},
 		on_construct = function(pos)
 			local timer = minetest.get_node_timer(pos)
 			timer:start(2)
@@ -272,14 +272,46 @@ minetest.register_node("runetest:tafel", {
 		--runetest.core.tafel.bubblebubbletoilandtrouble(runetest.core.tafel.lemscan(pos))
 	end
 })
-minetest.register_node("runetest:tablet", {
-    drawtype = "mesh", 
+minetest.register_node("runetest:tablet", { 
     tiles = {"canvas2.png"},
-	mesh = "stonetile.b3d",
-	walkable = false,
-	pointable = false,
+	drawtype = "nodebox",
+	paramtype = "light",
+	node_box = {
+		type = "fixed",
+		fixed = {
+			{-0.4375, -0.5, -0.4375, 0.4375, -0.4575, 0.4375}, -- NodeBox1
+		}
+	},
 	groups = {crumbly = 1,oddly_breakable_by_hand = 1}
 })
+for n = 1, runetest.insc.glyphs, 1 do
+	minetest.register_node("runetest:tablet"..n, { 
+		tiles = {"canvas2.png^".."glyph_"..n..".png"},
+		drawtype = "nodebox",
+		paramtype = "light",
+		node_box = {
+			type = "fixed",
+			fixed = {
+				{-0.4375, -0.5, -0.4375, 0.4375, -0.4575, 0.4375}, -- NodeBox1
+			}
+		},
+		groups = {crumbly = 1,oddly_breakable_by_hand = 1, rt_chalk = 1}
+	})
+end
+for n = 1, runetest.insc.lemmas, 1 do
+	minetest.register_node("runetest:ltablet"..n, { 
+		tiles = {"canvas2.png^".."lemma_"..n..".png"},
+		drawtype = "nodebox",
+		paramtype = "light",
+		node_box = {
+			type = "fixed",
+			fixed = {
+				{-0.4375, -0.5, -0.4375, 0.4375, -0.4575, 0.4375}, -- NodeBox1
+			}
+		},
+		groups = {crumbly = 1,oddly_breakable_by_hand = 1}
+	})
+end
 minetest.register_node("runetest:tile", {
     tiles = {"sapro.png"},
 	groups = {crumbly = 1,oddly_breakable_by_hand = 1}

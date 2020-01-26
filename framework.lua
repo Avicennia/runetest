@@ -52,6 +52,10 @@ runetest.core.frame.indexer = function(tab) --Converts table strings into numeri
 
         table.insert(result,tonumber(string.sub(v,string.find(v,"_")+1)))
 
+        elseif(string.find(v, "lemma") and string.find(v,"_") and string.sub(v,string.find(v,"_")+1))then
+
+            table.insert(result,-tonumber(string.sub(v,string.find(v,"_")+1)))
+
         elseif(v == "air")then
 
             table.insert(result,0)
@@ -189,9 +193,7 @@ if(assumptions.norm == true)then -- COnvoluted set of functions to test equality
 
 else end
 
-local rt = {assumptions.id, data.outgoing.pattern,data.outgoing.size}
---minetest.chat_send_all(minetest.serialize(data.incoming.pattern).." | "..minetest.serialize(data.temp.pattern).." | "..minetest.serialize(data.outgoing.pattern))
---minetest.chat_send_all(minetest.serialize(runetest.templates.glyphs[index]).." [|] "..runetest.templates.glyphs_info[index][1])
+local rt = {assumptions.id, data.temp.pattern,data.incoming.size}
 return rt
 
 end
@@ -202,9 +204,15 @@ runetest.core.frame.discriminate = function(orig,diam)
     local numb = 0
     local tag = false;
     local snapshot = runetest.core.frame.snap(orig,diam)
+    local analysis;
     for n = 1, #runetest.templates.glyphs, 1 do
-    local analysis = runetest.core.frame.anal(snapshot,n)
-    if(analysis[1] == true)then
+        analysis = runetest.core.frame.anal(snapshot,n)
+        minetest.chat_send_all(minetest.serialize(analysis))
+        if(analysis[1] == true)then
+            analysis = analysis[2] break -- Sloppy fix, remember to change
+        else analysis = nil
+    end
+    if(analysis)then
         if(n ~= 0 and n <= 9)then
             numb = n;
             tag = "lemma"
@@ -248,7 +256,7 @@ runetest.core.frame.place = function(pos,index)
     if(index > 0)then
         if(runetest.templates.glyphs_info[index][1] == 3)then
             if(runetest.templates.glyphs_info[index][4][1] == "place")then
-                local tafel = minetest.find_node_near(pos, 2, {"runetest:tafel"},false)
+                local tafel = minetest.find_node_near(pos, 3, {"runetest:tafel"},false)
 
                 if(tafel)then
                     local par2 = minetest.get_node(tafel).param2
@@ -261,12 +269,12 @@ runetest.core.frame.place = function(pos,index)
                     end
                     local offset = minetest.get_objects_inside_radius(tafel, 2)
                     minetest.chat_send_all(#offset)
-                    if(offset and #offset > 0)then
+                    if(offset and #offset > 0 and #offset < 8)then
                         offset = #offset;
                         minetest.add_entity(vector.add(tafel,chambers[offset]), "runetest:ent_lemma_"..index)
                     elseif(offset == nil or #offset == 0)then
                         minetest.add_entity(vector.add(tafel,chambers[0]), "runetest:ent_lemma_"..index)
-                    else minetest.chat_send_all(#offset) 
+                    else 
                     end
                 else end
             else end

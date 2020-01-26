@@ -75,7 +75,7 @@ minetest.register_tool("runetest:pen_1",{
 
 
         on_secondary_use = function(itemstack, user, pointed_thing)
-            minetest.chat_send_all(minetest.serialize(pointed_thing))
+            --minetest.chat_send_all(minetest.serialize(pointed_thing))
         end
     })
     minetest.register_tool("runetest:wand_2",{
@@ -97,22 +97,24 @@ minetest.register_tool("runetest:pen_1",{
             place = "default_tool_break",
         },
         on_use = function(itemstack, user, pointed_thing)
-            local wandran = 5
-            if(pointed_thing.above)then
-                local pos = pointed_thing.above
+            local wandran = 5;
+            local pos;
+            if(pointed_thing)then
+                if(minetest.get_node(pointed_thing.under).name:find("lemma"))then
+                    pos = pointed_thing.under
+                else pos = pointed_thing.above end
                 local pos_scan = {x=pos.x - 3,y=pos.y,z=pos.z - 3}
 
-                if(pos_scan)then
-                    runetest.core.frame.place(pos,runetest.core.frame.discriminate(pos_scan,wandran))
-                    minetest.sound_play({name = "sfx_bell", gain = 1.0, pitch = 1.0},{gain = 1.0, fade = 0.0, pitch = 1.0})
-                    runetest.core.frame.poof(pos,2)
-
+                    if(pos_scan)then
+                        runetest.core.frame.place(pos,runetest.core.frame.discriminate(pos_scan,wandran))
+                        minetest.sound_play({name = "sfx_bell", gain = 1.0, pitch = 1.0},{gain = 1.0, fade = 0.0, pitch = 1.0})
+                        runetest.core.frame.poof(pos,2)
                     else end
             else end
         end,
 
 
         on_secondary_use = function(itemstack, user, pointed_thing)
-            minetest.chat_send_all(minetest.serialize(pointed_thing))
+           -- minetest.chat_send_all(minetest.serialize(pointed_thing))
         end
     })
