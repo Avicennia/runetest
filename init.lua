@@ -14,16 +14,15 @@ runetest = {
     core = {
         frame = {}, -- Core functions pertaining to the recognition, preparation and execution of glyphs and runes.
         tafel = { chambers = {[0] = {x = 0, y = 0.25 , z = 0},{z = -0.25, y = 0, x = 0},{z = -0.45, y = 0.25 , x = 0},
-                            {z = -0.25 , y = 0.50 , x = 0},{z = 0.25, y = 0.50, x = 0},{z = 0.45, y = 0.25, x = 0},{z = 0.25, y = 0.0 , x = 0},}}, -- Core functions pertaining to the usage of the tafel.
+                            {z = -0.25 , y = 0.50 , x = 0},{z = 0.25, y = 0.50, x = 0},{z = 0.45, y = 0.25, x = 0},{z = 0.25, y = 0.0 , x = 0}},
+                    chambers_alt = {[0] = {z = 0, y = 0.25 , x = 0},{x = -0.25, y = 0, z = 0},{x = -0.45, y = 0.25 , z = 0},
+                    {x = -0.25 , y = 0.50 , z = 0},{x = 0.25, y = 0.50, z = 0},{x = 0.45, y = 0.25, z = 0},{x = 0.25, y = 0.0 , z = 0}}}, -- Core functions pertaining to the usage of the tafel.
         res = {}, -- Core functions pertaining to the resonance feature.
         cast = {},  -- Core functions pertaining to the casting of runes, and their related execution calls.
         will = { states = {0,1,2}} -- Core functions pertaining to the WILL system.
     },
     cache = { users = {}, userstates = {}}
 }
-
-
-
 
 
 dofile(modpath.."/framework.lua")

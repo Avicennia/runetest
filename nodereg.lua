@@ -262,13 +262,14 @@ minetest.register_node("runetest:rest_occupied", {
 })
 minetest.register_node("runetest:tafel", {
     drawtype = "mesh", 
-    tiles = {"canvas2.png"},
+    tiles = {"ash.png"},
     paramtype2 = "facedir",
 	mesh = "table.b3d",
 	groups = {crumbly = 1,oddly_breakable_by_hand = 1},
 	on_punch = function(pos)
-		
-		runetest.core.tafel.bubblebubbletoilandtrouble(runetest.core.tafel.lemscan(pos))
+		--minetest.set_node(pos,{name = "runetest:tafel", param2 = minetest.get_node(pos).param2 + 1})
+		minetest.chat_send_all(minetest.get_node(pos).param2)
+		--runetest.core.tafel.bubblebubbletoilandtrouble(runetest.core.tafel.lemscan(pos))
 	end
 })
 minetest.register_node("runetest:tablet", {

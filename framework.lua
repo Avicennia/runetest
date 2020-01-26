@@ -251,10 +251,16 @@ runetest.core.frame.place = function(pos,index)
                 local tafel = minetest.find_node_near(pos, 2, {"runetest:tafel"},false)
 
                 if(tafel)then
+                    local par2 = minetest.get_node(tafel).param2
                     tafel.y = tafel.y + 1;
                     local chambers = runetest.core.tafel.chambers
+                    
+                    if(par2 == 0 or par2 == 2)then
+                       chambers = runetest.core.tafel.chambers_alt
+                    else 
+                    end
                     local offset = minetest.get_objects_inside_radius(tafel, 2)
-
+                    minetest.chat_send_all(#offset)
                     if(offset and #offset > 0)then
                         offset = #offset;
                         minetest.add_entity(vector.add(tafel,chambers[offset]), "runetest:ent_lemma_"..index)
