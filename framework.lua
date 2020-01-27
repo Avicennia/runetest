@@ -19,28 +19,6 @@ end
     return db
 end
 
--- DUPLICATE REMOVAL FUNCTION (TABLE)
-function runetest.util.dupe(tab)
-    local tab = {1,2,3,8,5,6,1,3,5,4,3,8,1,4,4,5,8,2,3,1,2,5,6,8,2,1,1,1,1,1,1,1,1,1,1}
-    local keys = {};
-    local rv = {};
-    for _,v in pairs(tab) do
-        table.insert(keys, v)
-        for n = 1, #tab, 1 do
-        if(keys[#keys] == tab[n])then
-        tab[n] = 0
-        else end
-        end
-    end
-    for n = 1, #keys, 1 do
-        if(keys[n] ~= 0)then
-           table.insert(rv,keys[n])
-        else end
-    end
-    
-    return rv
-end
-
 
 -- NAME-NUM INDEXER FUNCTION
 runetest.core.frame.indexer = function(tab) --Converts table strings into numerical values. (used for internal tables here)
@@ -312,7 +290,7 @@ end
 
 
 runetest.core.tafel.lemscan = function(pos)
-    space = {x = pos.x, y = pos.y + 1, z = pos.z}
+    space = {x = pos.x, y = pos.y + 1, z = pos.z}string.sub(nom,string.find(nom,"a_")+2)
     local data = {name = minetest.get_node(pos).name,
     objects = minetest.get_objects_inside_radius(space,1),
     se_objects = {num = "", refs = {}}
@@ -320,7 +298,7 @@ runetest.core.tafel.lemscan = function(pos)
     if(type(data.objects) == "table" and #data.objects > 0)then
         for k,v in ipairs(data.objects)do
             local nom = v:get_entity_name()
-            data.se_objects.num = data.se_objects.num .. string.sub(nom,string.find(nom,"a_")+2)
+            data.se_objects.num = data.se_objects.num .. 
             data.se_objects.refs[k] = v
 
         end
