@@ -329,12 +329,30 @@ runetest.core.tafel.lemscan = function(pos)
 end
 
 
-runetest.core.tafel.bubblebubbletoilandtrouble = function(arr) -- Definitely not a pirate argument (It means array, as in the passed array of numbers or the sequence)
-    if(arr.num == runetest.templates.recipes[1])then
-        for k,v in pairs(arr.refs)do
-            v:remove()
-        end
-    else minetest.chat_send_all(arr.num .. " |||||| " .. runetest.templates.recipes[1]) end
+runetest.core.tafel.makeglyph = function(pos,arr) -- Definitely not a pirate argument (It means array, as in the passed array of numbers or the sequence)
+    local ind = 0
+    minetest.chat_send_all(arr.num .. " |||||| " .. runetest.templates.recipes[1])
+    while(type(ind) == "number")do
+        ind = ind + 1;
+        if(ind >= #runetest.templates.recipes)then
+            ind = nil
+        else end
+
+            if(arr.num == runetest.templates.recipes[ind])then
+       
+            minetest.chat_send_all(ind)
+            local tafel = minetest.find_node_near(pos, 2, {"runetest:tafel"},false) 
+                if(tafel)then
+
+            for k,v in pairs(arr.refs)do
+                v:remove()
+            end
+            
+                minetest.add_entity(vector.add(tafel,runetest.core.tafel.chambers[0]), "runetest:ent_glyph_"..ind)
+            else end
+            ind = nil
+            else end
+    end
 end
 
 

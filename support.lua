@@ -8,7 +8,7 @@ runetest.templates = {
     --Lemma 1
     {{28,0,28},{28,28,28},{0,28,0}},
     --Lemma 2
-    {{28,-7,28},{0,28,0},{28,0,28}},-- Radially Symmetric
+    {{28,0,28},{0,28,0},{28,0,28}},-- Radially Symmetric
     --Lemma 3
     {{28,28,28},{28,0,28},{28,0,28}},
     --Lemma 4
@@ -63,11 +63,14 @@ runetest.templates = {
     glyphs_info = {},
     alternatives = {},
     recipes = {
-        "6179538",
-        {},
-        {},
-        {},
-        {},
+        "7777774",
+        "5178369",
+        "",
+        "",
+        "2322329",
+        "",
+        "",
+        "",
     }
 
 }
@@ -150,6 +153,7 @@ local stonetab = {
     },
     on_step = function(self)
         local pos = self.object:get_pos()
+        pos.y = pos.y + 0.05
         runetest.particle.scrib(pos)
         end
 }

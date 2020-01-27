@@ -248,18 +248,6 @@ minetest.register_node("runetest:meshy", {
 	groups = {crumbly = 1,oddly_breakable_by_hand = 1}
 })
 
-minetest.register_node("runetest:rest", {
-    drawtype = "mesh",
-    tiles = {"canvas2.png"},
-	mesh = "stylusrest.b3d",
-	groups = {crumbly = 1,oddly_breakable_by_hand = 1}
-})
-minetest.register_node("runetest:rest_occupied", {
-    drawtype = "mesh", 
-    tiles = {"canvas2.png"},
-	mesh = "stylusrestocc.b3d",
-	groups = {crumbly = 1,oddly_breakable_by_hand = 1}
-})
 minetest.register_node("runetest:tafel", {
     drawtype = "mesh", 
     tiles = {"ash.png"},
@@ -267,9 +255,8 @@ minetest.register_node("runetest:tafel", {
 	mesh = "table.b3d",
 	groups = {crumbly = 1,oddly_breakable_by_hand = 1},
 	on_punch = function(pos)
-		--minetest.set_node(pos,{name = "runetest:tafel", param2 = minetest.get_node(pos).param2 + 1})
-		minetest.chat_send_all(minetest.get_node(pos).param2)
-		--runetest.core.tafel.bubblebubbletoilandtrouble(runetest.core.tafel.lemscan(pos))
+
+		runetest.core.tafel.makeglyph(pos, runetest.core.tafel.lemscan(pos))
 	end
 })
 minetest.register_node("runetest:tablet", { 
